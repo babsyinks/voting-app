@@ -1,0 +1,197 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    height: 97vh;
+    width:96vw;
+    
+  }
+
+  .box{
+    opacity: 0.8;
+    width: 80%;
+    height:95%;
+    background-color: white;
+  }
+
+  .wrapper div h1{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .elements{
+    padding-top: 15px;
+  }
+  .elements div{
+    margin-bottom: 30px;
+  }
+  
+  .elements div label{
+    display: inline-block;
+    width: 130px;
+    font-weight: bold;
+    
+  }
+  
+  .elements div input[type="text"],input[type="email"]{
+    border: 0px;
+    border-bottom: 1px solid grey;
+    outline: none;
+    display: inline-block;
+    width: 300px;
+    
+  }
+  #proceed{
+    width:30%;
+    padding:10px 5px;
+  }
+  #proceed:not(:disabled):hover{
+    color:white;
+    font-weight: bold;
+    background-color: green;
+  }
+  .imgSpan{
+    padding-left: 10px;
+  }
+
+  legend{
+    font-weight: bold;
+    font-style: italic;
+    color: darkblue;
+  }
+
+  @media only screen and (max-height:700px){
+    .elements{
+      padding-top: 10px;
+    }
+    .elements div{
+      margin-bottom: 20px;
+    }
+    
+    .elements div label{
+      
+      width: 130px;
+      
+    }
+    
+    .elements div input[type="text"],input[type="email"]{
+      width: 200px;
+    }
+  
+  }
+
+  @media screen and (max-width:600px){
+    .elements div label{
+      width: 70px;
+    }
+
+    .elements div input[type="text"],input[type="email"]{
+      width: 150px;
+    }
+
+    .wrapper div h1{
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width:370px){
+    .elements div label{
+      width: 60px;
+      font-size: 12px;
+    }
+
+    .elements div input[type="text"],input[type="email"]{
+      width: 120px;
+    }
+
+    .wrapper div h1{
+      font-size: 16px;
+    }
+    legend{
+      font-size: 10px;
+    }
+  }
+  @media screen and (max-width:340px){
+    .elements div label{
+      width: 50px;
+      font-size: 11px;
+    }
+
+    .elements div input[type="text"],input[type="email"]{
+      width: 100px;
+    }
+    #proceed{
+      width:40%;
+      
+    }
+  }
+
+  @media screen and (max-width:300px){
+    .elements div label{
+      width: 40px;
+      font-size: 10px;
+    }
+
+    .elements div input[type="text"],input[type="email"]{
+      width: 80px;
+    }
+
+    .wrapper div h1{
+      font-size: 14px;
+    }
+    legend{
+      font-size: 8px;
+    }
+  }
+  @media only screen and (min-height:750px) and (orientation:landscape){
+    .elements div{
+      margin-bottom: 50px;
+    }
+    .wrapper{
+      height: 97.5vh;
+    }
+  
+  }
+
+  @media only screen and (min-height:850px) and (orientation:landscape){
+    .elements div{
+      margin-bottom: 65px;
+    }
+  }
+  @media only screen and (min-height:950px){
+    .elements div{
+      margin-bottom: 80px;
+    }
+    .wrapper{
+      height: 98.5vh;
+    }
+  }
+
+  @media only screen and (min-height:1200px){
+    .elements div{
+      margin-bottom: 115px;
+    }
+
+  }
+  @media screen and (orientation:portrait){
+    .box{
+      height:auto;
+      width: auto;
+    }
+    .wrapper{
+      width: auto;
+    }
+  }
+  @media screen and (max-height:550px) and (orientation:landscape){
+    .wrapper{
+      height:120vh;
+    }
+  }
+  @media screen and (max-height:400px) and (orientation:landscape){
+    .wrapper{
+      height:auto;
+    }
+  }
+

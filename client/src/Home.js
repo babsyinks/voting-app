@@ -1,6 +1,10 @@
 import React,{useState,useEffect,Fragment} from 'react'
 import validator from 'validator'
+import axios from 'axios'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
 import './Home.css';
+
 function Home() {
   const[isDisabled,setIsDisabled] = useState(true)
   const[surname,setSurname] = useState('')
@@ -20,15 +24,19 @@ function Home() {
   const[isMaidenNameSet,setIsMaidenNameSet] = useState(false)
   const[marital_status,setMarital_Status] = useState('single')
   const[gender,setGender] = useState("male")
+  const [value, onChange] = useState(new Date());
+  const[showCalendar,setShowCalendar] = useState(false)
+  const[showDateText,setShowDateText] = useState(false)
+  const[dateText,setDateText] = useState('')
 
   useEffect(() => {
-    if(emailIsValid&& surnameIsValid && firstNameIsValid && egcaNumIsValid && ((gender === "female" && marital_status === "married")?maidenNameIsValid:true)){
+    if(emailIsValid&& surnameIsValid && firstNameIsValid && egcaNumIsValid && dateText && ((gender === "female" && marital_status === "married")?maidenNameIsValid:true)){
         setIsDisabled(false)
     }
     else{
         setIsDisabled(true)
     }
-}, [emailIsValid,surnameIsValid,firstNameIsValid,egcaNumIsValid,maidenNameIsValid,gender,marital_status])
+}, [emailIsValid,surnameIsValid,firstNameIsValid,egcaNumIsValid,dateText,maidenNameIsValid,gender,marital_status])
 
 const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   
@@ -89,6 +97,38 @@ const onMaritalStausChange = (e)=>{
     setMaidenNameIsValid(false)
   }
 }
+
+const openCalendar = (e)=>{
+  setShowCalendar(true)
+}
+
+const setCalendarDate = (dateObj)=>{
+  onChange(dateObj)
+  setShowDateText(true)
+  const month = dateObj.getMonth() + 1
+  const day = dateObj.getDate()
+  const year = dateObj.getFullYear()
+  setDateText(`${month}/${day}/${year}`)
+  setShowCalendar(false)
+}
+
+const handleSubmit = async (e)=>{
+  const alumniInfo = {surname,firstName,email,egcaNum,gender,dateText}
+  if(gender === "female"){
+    alumniInfo.maritalStatus = marital_status
+    if(marital_status === "married"){
+      alumniInfo.maidenName = maidenName
+    }
+  }
+  try {
+    const {data} = await axios.post('/auth/checkIdentity',alumniInfo)
+    const{validEgcaNum,validSurname,validFirstName,validDob,validGender,validMaidenName} = data
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+
+}
   return (
     <div className = "wrapper">
       <div className = "box">
@@ -100,6 +140,7 @@ const onMaritalStausChange = (e)=>{
               <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} ></input>
               {isEmailSet && <span className = "imgSpan"><img src = {emailIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts email validity"/></span>}
             </div>
+            
             <div>
               <label htmlFor='surname'>Surname:</label><input type = "text" name = "surname" value = {surname} onChange = {setValidSurname} ></input>
               {isSurnameSet && <span className = "imgSpan"><img src = {surnameIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts surname validity"/></span>}
@@ -112,6 +153,12 @@ const onMaritalStausChange = (e)=>{
               <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} ></input>
               {isEgcaNumSet && <span className = "imgSpan"><img src = {egcaNumIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts EGCA Number validity"/></span>}
             </div>
+            <div>
+              <label htmlFor='dob'>Date Of Birth:</label>
+              {showDateText && <input type = "text" name = "dateText" value = {dateText} readOnly = {true} ></input>}{!showCalendar && <button onClick = {openCalendar} className = "calendar_btn"></button>}
+            </div>  
+            
+            
               <div>
                 <label htmlFor='gender'>Sex:</label>
                 <span>
@@ -136,8 +183,8 @@ const onMaritalStausChange = (e)=>{
                 )}
               </Fragment>)}
           </div>
-          
-          <input id = "proceed" type = "button" value = "Proceed" disabled = {isDisabled}></input>
+          {showCalendar && <span className = 'calendar'><Calendar onChange={setCalendarDate} value={value}/></span>}
+          <input id = "proceed" type = "button" value = "Proceed" disabled = {isDisabled} onClick = {handleSubmit}></input>
         </fieldset>
       </div>
   

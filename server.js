@@ -1,20 +1,19 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const authRoutes = require('./server/routes/authRoutes')
 const port = process.env.PORT || 3001
+require('./server/db/connectToDB')
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,'client','build')))
-    app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'client','build','index.html'))
+const assetFolder = process.env.NODE_ENV === 'production'?'build':'public'
+
+app.use(express.static(path.join(__dirname,'client',`${assetFolder}`)))
+
+app.use('/auth',authRoutes)
+
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'client',`${assetFolder}`,'index.html'))
 })
-}
-else{
-    app.use(express.static(path.join(__dirname,'client','public')))
-    app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'client','public','index.html'))
-})
-}
 
 app.listen(port,()=>{ 
     console.log(`Server listening on port ${port}`)  

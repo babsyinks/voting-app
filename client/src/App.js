@@ -12,6 +12,7 @@ return(
         <BrowserRouter>
             <Switch>
                 <Route exact path = '/' component = {Home} />
+                <Route exact path = '/admin' component = {Admin}/>
                 <Route component = {Home} />
             </Switch>
         </BrowserRouter>

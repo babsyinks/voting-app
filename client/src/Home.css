@@ -6,7 +6,6 @@
     padding: 10px;
     height: 97vh;
     width:96vw;
-    
   }
 
   .box{
@@ -27,7 +26,7 @@
   .elements div{
     margin-bottom: 30px;
   }
-  
+
   .elements div label{
     display: inline-block;
     width: 130px;
@@ -41,19 +40,38 @@
     outline: none;
     display: inline-block;
     width: 300px;
-    
   }
+
+  .calendar{
+    position: absolute;
+    top:20%;
+    right:30%;
+  }
+
+.calendar_btn{
+  background: url('images/calendar.jpg');
+  width:25px;
+  height: 25px;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  outline: none;
+}
+
   #proceed{
     width:30%;
     padding:10px 5px;
+    outline: none;
   }
   #proceed:not(:disabled):hover{
     color:white;
     font-weight: bold;
     background-color: green;
+    border: none;
   }
   .imgSpan{
     padding-left: 10px;
+    margin:0px;
   }
 
   legend{
@@ -165,7 +183,7 @@
       margin-bottom: 80px;
     }
     .wrapper{
-      height: 98.5vh;
+      height: 120vh;
     }
   }
 
@@ -186,7 +204,7 @@
   }
   @media screen and (max-height:550px) and (orientation:landscape){
     .wrapper{
-      height:120vh;
+      height:140vh;
     }
   }
   @media screen and (max-height:400px) and (orientation:landscape){
@@ -195,3 +213,34 @@
     }
   }
 
+  @media screen and (min-width:1400px){
+    .calendar{
+      right:50%;
+    }
+  }
+
+  @media screen and (max-width:600px){
+    .calendar{
+      right:14%;
+      
+    }
+  }
+
+  @media screen and (max-width:450px){
+    .calendar{
+      right:10%;
+      width:80%
+    }
+  }
+
+  @media screen and (min-height:700px){
+    .calendar{
+      top:30%;
+    }
+  }
+
+  @media screen and (min-height:1000px){
+    .calendar{
+      top:40%;
+    }
+  }

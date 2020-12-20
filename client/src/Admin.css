@@ -1,0 +1,162 @@
+.admin{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    background-image: linear-gradient(to right, rgb(253, 208, 208),rgb(255, 240, 209),rgb(243, 243, 191),rgb(200, 245, 200),rgb(190, 190, 248),rgb(224, 188, 248),rgb(247, 197, 247));
+    height:100vh;
+    overflow-x: hidden;
+}
+.admin h1{
+    margin-left: 35%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+.admin div{
+    margin-left: 35%;
+    margin-bottom: 2%;
+}
+.admin div label{
+    font-weight: bold;
+    width:150px;
+    font-size: 18px;
+    display: inline-block;
+}
+.admin input[type="text"]{
+    border: 0px;
+    border-bottom: 1px solid grey;
+    outline: none;
+    display: inline-block;
+    width: 300px;
+  }
+
+.admin input,textarea{
+    background: none;
+}
+.admin textarea{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+#submit{
+    width: 3.5em;
+    height: 3.5em;
+    margin: 5px;
+    border:1px solid black;
+    border-radius: 100%;
+    font-weight: bold;
+    background-color: rgb(20, 245, 121);
+    box-shadow: 2px 1px 2px 2px rgb(0, 34, 27);
+    outline: none;    
+   
+}
+
+#submit:not(:disabled):hover{
+    font-size: 1em;
+    background-color: rgb(14, 167, 40);
+    color: white;
+    animation: actionBtn 0.6s ease-in-out;
+    cursor: pointer;
+}
+
+#goHome{
+    width: 3.5em;
+    height: 3.5em;
+    margin: 5px;
+    border:1px solid black;
+    border-radius: 100%;
+    font-weight: bold;
+    background-color:rgb(162, 0, 255); 
+    box-shadow: 2px 1px 2px 2px rgb(57, 2, 68);
+    outline: none;   
+}
+
+#goHome:hover{
+    font-size: 1em;
+    background-color:rgb(70, 10, 105);
+    color: white;
+    animation: actionBtn 0.6s ease-in-out;
+    cursor: pointer;
+}
+
+#goVote{
+    width: 3.5em;
+    height: 3.5em;
+    margin: 5px;
+    border:1px solid black;
+    border-radius: 100%;
+    font-weight: bold;
+    background-color: rgb(0, 81, 255); 
+    box-shadow: 2px 1px 2px 2px rgb(7, 1, 59);
+    outline: none;   
+}
+
+#goVote:hover{
+    font-size: 1em;
+    background-color: rgb(7, 7, 117);
+    color: white;
+    animation: actionBtn 0.6s ease-in-out;
+    cursor: pointer;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width:500px){
+    .admin div{
+        margin-left: 3%;
+    }
+    .admin h1{
+        margin-left: 3%;
+
+    }
+}
+
+@media screen and (max-height:450px){
+
+    .admin div label{
+        font-size:14px;
+    }
+    .admin div{
+        margin-left:2%;
+        margin-bottom:1%;
+    }
+    .admin h1{
+        margin-left:2%;
+        margin-top:0px;
+        margin-bottom:0px;
+    }
+}
+
+@media screen and (max-height:600px) {
+    .admin{
+        height:130vh;
+    }
+}
+
+@media screen and (max-height:350px){
+    .admin{
+        height:150vh;
+    }
+}
+
+@media screen and (min-height:600px) and (orientation:portrait) {
+    .admin{
+        height:130vh;
+    }
+}
+
+@media screen and (max-width:300px){
+    .admin input[type="text"]{
+        width: 200px;
+      }
+      .admin textarea{
+        max-width: 70%;
+    }
+    #submit{
+        width:340%;
+    }
+}

@@ -1,0 +1,28 @@
+.listOfContestants{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap:10px;
+    grid-template-rows: auto;
+}
+
+.electionDetails{
+    text-align: center;
+}
+
+.electionIntro{
+    width: auto;
+    border-radius: 5px;
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    margin:10px 5px;
+    text-transform: capitalize;
+}
+
+.electionIntro h2 span{
+    color: rgb(255, 0, 51);
+}
+
+.electionIntro h3 span{
+    color: rgb(0, 255, 21);
+}

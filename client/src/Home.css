@@ -4,8 +4,10 @@
     align-items: center;
     flex-direction: column;
     padding: 10px;
-    height: 97vh;
-    width:96vw;
+    height: 96.9vh;
+    background-image: url("images/egca.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .box{
@@ -68,6 +70,7 @@
     font-weight: bold;
     background-color: green;
     border: none;
+    cursor: pointer;
   }
   .imgSpan{
     padding-left: 10px;
@@ -168,7 +171,8 @@
       margin-bottom: 50px;
     }
     .wrapper{
-      height: 97.5vh;
+      height: 120vh;
+     
     }
   
   }
@@ -198,9 +202,7 @@
       height:auto;
       width: auto;
     }
-    .wrapper{
-      width: auto;
-    }
+   
   }
   @media screen and (max-height:550px) and (orientation:landscape){
     .wrapper{
@@ -237,6 +239,20 @@
     .calendar{
       top:30%;
     }
+  }
+
+  @media screen and (min-height:700px) and (orientation:portrait){
+    .wrapper{
+      height:97.5vh;
+    }
+ 
+  }
+
+  @media screen and (min-height:900px) and (orientation:portrait){
+    .wrapper{
+      height:110vh;
+    }
+ 
   }
 
   @media screen and (min-height:1000px){

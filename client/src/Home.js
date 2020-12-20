@@ -1,11 +1,16 @@
 import React,{useState,useEffect,Fragment} from 'react'
+import {connect} from 'react-redux'
 import validator from 'validator'
 import axios from 'axios'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
+import DisplayErrorMessage from './DisplayErrorMessage'
+import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
+//import {displayMessage,dontDisplayMessage} from './actions/messageActions'
 import './Home.css';
+import { setUserInfo } from './actions/userInfoAction'
 
-function Home() {
+function Home({history,grantAccess,denyAccess,setInfo}) {
   const[isDisabled,setIsDisabled] = useState(true)
   const[surname,setSurname] = useState('')
   const[surnameIsValid,setSurnameIsValid] = useState(false)
@@ -28,6 +33,7 @@ function Home() {
   const[showCalendar,setShowCalendar] = useState(false)
   const[showDateText,setShowDateText] = useState(false)
   const[dateText,setDateText] = useState('')
+  const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
 
   useEffect(() => {
     if(emailIsValid&& surnameIsValid && firstNameIsValid && egcaNumIsValid && dateText && ((gender === "female" && marital_status === "married")?maidenNameIsValid:true)){
@@ -36,8 +42,24 @@ function Home() {
     else{
         setIsDisabled(true)
     }
+
 }, [emailIsValid,surnameIsValid,firstNameIsValid,egcaNumIsValid,dateText,maidenNameIsValid,gender,marital_status])
 
+/*   useEffect(()=>{
+    let mounted = true
+   
+    if(mounted){
+      timer.current = setTimeout(()=>{
+      hideMsg()
+    },5000)
+    }
+    return function cleanUp(){
+      mounted = false
+      clearTimeout(timer.current)
+    }
+  //eslint-disable-next-line
+  },[showMsg])
+ */
 const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   
   const trimmedStr = value.replace(/\s/g,'') 
@@ -112,6 +134,13 @@ const setCalendarDate = (dateObj)=>{
   setShowCalendar(false)
 }
 
+const setAlert = (cls,message)=>{
+  setDisplayAlert({display:true,cls,message})
+  setTimeout(()=>{
+    setDisplayAlert({display:false,cls:'',message:''})
+  },5000)
+}
+
 const handleSubmit = async (e)=>{
   const alumniInfo = {surname,firstName,email,egcaNum,gender,dateText}
   if(gender === "female"){
@@ -121,16 +150,30 @@ const handleSubmit = async (e)=>{
     }
   }
   try {
-    const {data} = await axios.post('/auth/checkIdentity',alumniInfo)
-    const{validEgcaNum,validSurname,validFirstName,validDob,validGender,validMaidenName} = data
-    console.log(data)
+    const {data:{token,egcaNum,name}} = await axios.post('/auth/checkIdentity',alumniInfo)
+
+    if(token){
+      localStorage.setItem('token',token)
+      grantAccess()
+      setInfo(egcaNum,name)
+      history.push('/vote')
+    }
+    else{
+      denyAccess()
+      setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
+      //showMsg()
+    }
+    
   } catch (error) {
-    console.log(error)
+    denyAccess()
+    setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
+    //showMsg()
   }
 
 }
   return (
     <div className = "wrapper">
+      {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
       <div className = "box">
         <h1>EGCA Alumni Voting App</h1>
         <fieldset>
@@ -192,4 +235,8 @@ const handleSubmit = async (e)=>{
   );
 }
 
-export default Home;
+/* const mapStateToProps = (state)=>({
+  shouldMessageShow:state.showMessage
+})
+ */
+export default  connect(null,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);

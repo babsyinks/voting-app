@@ -1,5 +1,6 @@
-.app{
-    background-image: url("images/egca.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+body{
+    overflow-x: hidden;
+}
+input[type = button]:disabled:hover,button:disabled:hover{
+    cursor:not-allowed;
 }

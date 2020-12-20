@@ -1,5 +1,9 @@
 const express = require('express')
-const Egca = require('../model/model')
+const jwt = require('jsonwebtoken')
+const path = require('path')
+const {Egca} = require('../model/model')
+const auth = require('../middleware/auth')
+require('dotenv').config({path:path.join('..','..','.env')});
 const Router = express.Router()
 Router.use(express.json())
 
@@ -36,20 +40,35 @@ Router.post('/checkIdentity',async (req,res)=>{
         const validGender = gender.toLowerCase() === egcaObj.gender.toLowerCase()
 
         const validObj = {validEgcaNum,validSurname,validFirstName,validDob,validGender}
-
+      
         if(egcaObj.email.length === 0){
             egcaObj.email = email
-            egcaObj = await egcaObj.save()
+            await egcaObj.save()
         }
         if(gender === 'female' && req.body.maritalStatus === 'married'){
             const validMaidenName = validateMaidenName(req.body.maidenName,egcaObj.maidenName)
             validObj.validMaidenName = validMaidenName
         }
-        res.json(validObj)       
+
+        const arrOfInfos = Object.values(validObj)
+        const statusOfInfos = arrOfInfos.every((val)=>val)
+        if(statusOfInfos){
+            const token = jwt.sign({user:{id:egcaObj.id}},process.env.TOKEN_SECRET,{expiresIn:24*60*60})
+            res.cookie('token',token,{httpOnly:true,expires:new Date(Date.now() + 24*60*60)})
+            res.json({egcaNum,name:`${surname} ${firstName}`,token}) 
+        }
+        else{
+            res.json({validObj})
+        }
+      
     } catch (error) {
         res.status(404).send({error:error.message})
     }
 
+})
+
+Router.get('/admin/login',auth,(req,res)=>{
+     res.json({authenticated:true})
 })
 
 module.exports = Router

@@ -36,4 +36,28 @@ const egcaSchema = new mongoose.Schema({
 
 const Egca = mongoose.model('alumni',egcaSchema)
 
-module.exports = Egca
+const contestantsSchema = new mongoose.Schema({
+    surname:String,
+    firstName:String,
+    egcaNum:Number,
+    manifesto:String,
+    picture:{
+        type:Buffer,
+        default:''
+    },
+    votes:[Number]
+})
+
+const electivePositionsSchema = new mongoose.Schema({
+    position:String,
+    allVotes:[Number],
+    contestants:[contestantsSchema]
+})
+
+const electionSchema = new mongoose.Schema({
+    positions:[electivePositionsSchema],
+    allContestants:[Number]
+})
+
+const Election = mongoose.model('election',electionSchema)
+module.exports = {Egca,Election}

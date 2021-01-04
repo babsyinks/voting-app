@@ -27,7 +27,7 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
         <div className = "electionDetails">
             <div className = "electionIntro">
                 <h2>Position: <span>{position}</span></h2>
-                <h3>Total Votes Cast: <span>{totalVotes}</span></h3>                
+                <h3>Total Votes Cast: <span>{totCatVotes}</span></h3>                
             </div>
 
             <div className = "listOfContestants">

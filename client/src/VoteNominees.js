@@ -79,7 +79,14 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
             )
             }
             else{
-              return <h2>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
+              return (
+                <div className = "voteNomineesWrapper">
+                  {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
+                  <button style = {{padding:'10px',fontWeight:'bold'}} onClick = {handleLogin}>Add Contestants</button> 
+                  <h2 style = {{textAlign:'center',height:'100vh',color:'white'}}>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
+                </div>
+                
+              )
             }
           }
           else{

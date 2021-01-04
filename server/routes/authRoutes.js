@@ -54,7 +54,7 @@ Router.post('/checkIdentity',async (req,res)=>{
         const statusOfInfos = arrOfInfos.every((val)=>val)
         if(statusOfInfos){
             const token = jwt.sign({user:{id:egcaObj.id}},process.env.TOKEN_SECRET,{expiresIn:24*60*60})
-            res.cookie('token',token,{httpOnly:true,expires:new Date(Date.now() + 24*60*60)})
+            res.cookie('token',token,{httpOnly:true,expires:new Date(Date.now() + 24*60*60*1000)})
             res.json({egcaNum,name:`${surname} ${firstName}`,token}) 
         }
         else{

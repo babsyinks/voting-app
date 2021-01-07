@@ -9,9 +9,9 @@ const electionRoutes = require('./server/routes/electionRoutes')
 const port = process.env.PORT || 3001
 const app = express()
 
-app.use(helmet())
+app.use(helmet()) 
 app.use(xss())
-app.use(rateLimiter({max:100,windowMs:24*60*60*1000,message:'Maximum Allowed Requests From This Device Has Been Exceeded'}))
+app.use(rateLimiter({max:2000,windowMs:24*60*60*1000,message:'Maximum Allowed Requests From This Device Has Been Exceeded'}))
 app.use(mongoSanitize())
 
 require('./server/db/connectToDB')

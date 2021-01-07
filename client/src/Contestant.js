@@ -18,12 +18,12 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
         return votePercent
     }
 
-    const getImage = ()=>{
+/*     const getImage = ()=>{
         const b64 = new Buffer.from(picture).toString('base64')
         const mimeType = 'image/png'
 
        return `data:${mimeType};base64,${b64}`
-    }
+    } */
 
     const getManifesto = ()=>{
         setManifesto(true)
@@ -61,7 +61,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
     if(!readManifesto){
         return(
                 <div className = "contestant">
-                    <div><img src ={getImage()} alt = "contestant"/></div>
+                    <div><img src ={picture} alt = "contestant"/></div>
                     <div>Name: <span className = 'name'>{name}</span></div>
                     <div>Votes: <span className = 'votes'>{contestantVotes}</span> out of <span className = 'totalVotes'>{totalVotes}</span></div>
                     <div>Vote Percentage: <span className = 'votePercent'>{Math.round(votePercent())}%</span></div>

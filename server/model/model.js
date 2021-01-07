@@ -41,10 +41,7 @@ const contestantsSchema = new mongoose.Schema({
     firstName:String,
     egcaNum:Number,
     manifesto:String,
-    picture:{
-        type:Buffer,
-        default:''
-    },
+    picture:String,
     votes:[Number]
 })
 

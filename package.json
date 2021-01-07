@@ -12,7 +12,6 @@
   "author": "Babawarun Yinka",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.0.1",
@@ -21,9 +20,14 @@
     "imgbb-uploader": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.5",
+    "multer": "^1.4.2",
+    "sharp": "^0.27.0",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

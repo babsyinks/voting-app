@@ -3,7 +3,6 @@ const path = require('path')
 const sharp = require('sharp')
 const multer = require('multer')
 const fs = require('fs')
-const axios = require('axios')
 const imgbbUploader = require("imgbb-uploader");
 const auth = require('../middleware/auth')
 const electionAuth = require('../middleware/electionAuth')

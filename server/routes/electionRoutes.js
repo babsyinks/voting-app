@@ -1,12 +1,17 @@
 const express = require('express')
+const path = require('path')
 const sharp = require('sharp')
 const multer = require('multer')
+const fs = require('fs')
+const axios = require('axios')
+const imgbbUploader = require("imgbb-uploader");
 const auth = require('../middleware/auth')
 const electionAuth = require('../middleware/electionAuth')
 const {Election} = require('../model/model')
+require('dotenv').config({path:path.join('..','..','.env')});
 const Router = express.Router()
-Router.use(express.json())
-
+Router.use(express.json())  
+ 
 const upload = multer({
     limits:{fileSize:1000000 },
     fileFilter(req,file,cb){    
@@ -22,52 +27,79 @@ const upload = multer({
     })  
 
 Router.post('/contestants',auth,upload.single('picture'),async(req,res)=>{
+    let filePath
+    const fileName = req.file.originalname
+    try {
+        const{surname,firstName,post,manifesto} = req.body 
+        const egcaNum = +req.body.egcaNum
+        let allElections = await Election.find({})
+        const allELeObj = allElections[0]
+        
+        if(allElections.length!==0){
+            if(allELeObj.allContestants.find((num)=>num === egcaNum)){
+                return res.status(403).send({error:'This contestant has been added already'})
+        }
+        }
 
-    const buffer = await sharp(req.file.buffer).resize({width:300,height:300}).png().toBuffer() 
-    const{surname,firstName,post,manifesto} = req.body
-    const egcaNum = +req.body.egcaNum
-    if(Number.isNaN(egcaNum)||!egcaNum){
-        return res.status(400).send({error:'invalid egcaNum'})
-    }
-    const contestant = {surname,firstName,egcaNum,manifesto,picture:buffer,votes:[]}
-    let allElections = await Election.find({})
-    const allELeObj = allElections[0]
-    if(allElections.length === 0){
-        const electionObj = {position:post,allVotes:[],contestants:[]}
-        electionObj.contestants.push(contestant)
-        allElections.positions = []
-        allElections.positions.push(electionObj)
-        allElections.allContestants = []
-        allElections.allContestants.push(egcaNum)
-        allElections = new Election(allElections)
-        await allElections.save()
-    }
-    else{
-        if(allELeObj.allContestants.find((num)=>num === egcaNum)){
-            return res.status(403).send({error:'This contestant has been added already'})
+        
+        
+        await sharp(req.file.buffer).resize({width:300,height:300}).toFile(`${fileName}`)
+        
+
+        
+        if(Number.isNaN(egcaNum)||!egcaNum){
+            return res.status(400).send({error:'invalid egcaNum'})
+        }
+
+        filePath = path.join(__dirname,'..','..',fileName) 
+        const resp = await imgbbUploader(`${process.env.IMGBB_API_KEY}`,filePath)
+
+        fs.unlink(filePath,(err)=>{
+            if(err){
+                console.log(err.message)
+            }
+        })
+        const contestant = {surname,firstName,egcaNum,manifesto,picture:resp.display_url,votes:[]}
+        if(allElections.length === 0){
+            const electionObj = {position:post,allVotes:[],contestants:[]}
+            electionObj.contestants.push(contestant)
+            allElections.positions = []
+            allElections.positions.push(electionObj)
+            allElections.allContestants = []
+            allElections.allContestants.push(egcaNum)
+            allElections = new Election(allElections)
+            await allElections.save()
         }
         else{
-            const eleObj =  allELeObj.positions.find((obj)=>obj.position === post)
-            if(!eleObj){
-                const contestants = []
-                contestants.push(contestant)
-                allELeObj.positions.push({position:post,allVotes:[],contestants})
-                allELeObj.allContestants.push(egcaNum)
-                await allELeObj.save()
+                const eleObj =  allELeObj.positions.find((obj)=>obj.position === post)
+                if(!eleObj){
+                    const contestants = []
+                    contestants.push(contestant)
+                    allELeObj.positions.push({position:post,allVotes:[],contestants})
+                    allELeObj.allContestants.push(egcaNum)
+                    await allELeObj.save()
+                }
+                else{    
+                  eleObj.contestants.push(contestant)
+                  allELeObj.allContestants.push(egcaNum)
+                  await allELeObj.save()
+                }
+               
             }
-            else{
-              eleObj.contestants.push(contestant)
-              allELeObj.allContestants.push(egcaNum)
-              await allELeObj.save()
-            }
-          }
-           
-        }
-        res.json({message:'success'})
+            res.json({message:'success'})
 
-},(err,req,res,next)=>{
-    res.status(404).send({error:err.message})
-})
+    } catch (error) {
+        console.log(error)
+        fs.unlink(filePath,(err)=>{
+            if(err){
+                console.log(err.message)
+            }
+        })
+    }
+
+},(error, req, res, next) => {
+    res.status(400).send({error: error.message})
+    })
 
 Router.get('/details',electionAuth,async(req,res)=>{
     const{myEgcaNum} = req.user

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/EgcaVoteDB',{useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false})
+const path = require('path')
+require('dotenv').config({path:path.join('..','..','.env')});
+const connStr = process.env.NODE_ENV === 'production'?process.env.DB_CONN_STR_PROD:process.env.DB_CONN_STR_LOCAL
+mongoose.connect(connStr,{useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false})
 .then(()=>{
     console.log('connected to EgcaVoteDB successfully')
 })

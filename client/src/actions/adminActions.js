@@ -5,7 +5,6 @@ export const adminLogin = ()=> async(dispatch)=>{
       type:LOADING
    })
    try {
-      console.log(localStorage.getItem('token'))
          const {data:{authenticated}} = await axios.get('auth/admin/login',{headers:{
          'Accept':'application/json',
          'Content-Type':'application/json',

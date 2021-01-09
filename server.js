@@ -12,14 +12,16 @@ const app = express()
 app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'https://kit.fontawesome.com'],
+      scriptSrc: ["'self'", 'https://kit.fontawesome.com','https://ka-f.fontawesome.com','https://*.fontawesome.com'],
       styleSrc: [
         "'self'",
         'https://fonts.googleapis.com',
         'https://kit.fontawesome.com',
+        'https://ka-f.fontawesome.com',
+        'https://*.fontawesome.com'
       ],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-      imgSrc: ["'self'", 'https://*.fontawesome', 'https://i.ibb.co'],
+      imgSrc: ["'self'", 'https://*.fontawesome', 'https://i.ibb.co','data:'],
       baseUri: ["'self'"],
     },
   })) 

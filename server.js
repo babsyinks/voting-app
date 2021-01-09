@@ -20,7 +20,7 @@ app.use(helmet.contentSecurityPolicy({
         'https://kit.fontawesome.com',
         'https://ka-f.fontawesome.com',
         'https://*.fontawesome.com',
-        'unsafe-inline'
+        "'unsafe-inline'"
       ],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'https://*.fontawesome', 'https://i.ibb.co','data:'],

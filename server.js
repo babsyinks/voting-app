@@ -22,7 +22,7 @@ app.use(helmet.contentSecurityPolicy({
         'https://*.fontawesome.com',
         "'unsafe-inline'"
       ],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com','https://ka-f.fontawesome.com','https://*.fontawesome.com',"'unsafe-inline'"],
       imgSrc: ["'self'", 'https://*.fontawesome', 'https://i.ibb.co','data:'],
       baseUri: ["'self'"],
     },

@@ -9,7 +9,20 @@ const electionRoutes = require('./server/routes/electionRoutes')
 const port = process.env.PORT || 3001
 const app = express()
 
-app.use(helmet()) 
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'https://kit.fontawesome.com'],
+      styleSrc: [
+        "'self'",
+        'https://fonts.googleapis.com',
+        'https://kit.fontawesome.com',
+      ],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      imgSrc: ["'self'", 'https://*.fontawesome', 'https://i.ibb.co'],
+      baseUri: ["'self'"],
+    },
+  })) 
 app.use(xss())
 app.use(rateLimiter({max:2000,windowMs:24*60*60*1000,message:'Maximum Allowed Requests From This Device Has Been Exceeded'}))
 app.use(mongoSanitize())

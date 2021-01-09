@@ -12,6 +12,7 @@ const app = express()
 app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+      connectSrc: ["'self'", 'https://ka-f.fontawesome.com','https://*.fontawesome.com'],
       scriptSrc: ["'self'", 'https://kit.fontawesome.com','https://ka-f.fontawesome.com','https://*.fontawesome.com'],
       styleSrc: [
         "'self'",

@@ -5,6 +5,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
     
     const[readManifesto,setManifesto] = useState(false)
     const[contestantVotes,setContestantVotes] = useState(votes)
+    const[disableVote,setDisableVote] = useState(false)
 
     const votePercent = ()=>{
         let votePercent = contestantVotes/totalVotes
@@ -46,6 +47,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
     }
 
     const voteForContestant = async()=>{
+       setDisableVote(true)
        const{data:{allVotes,contestantVotes}} = await axios.patch('/election/vote',{myEgcaNum,egcaNum,position},{headers:{
             'Accept':'application/json',
             'Content-Type':'application/json',
@@ -54,6 +56,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
          updateCategoryVotes(allVotes.length)
          updateContestantVotes(contestantVotes.length)
          handleDisableButton()
+         setDisableVote(false)
     }
 
 
@@ -67,7 +70,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
                     <div>Vote Percentage: <span className = 'votePercent'>{Math.round(votePercent())}%</span></div>
                     <div><input type = "button" value = "Read Manifesto" onClick = {getManifesto} className = 'readManifesto'/></div>
                     {!isButtonDisabled?(
-                    <input type = "button" value = "Vote" className = "submitVote" onClick = {voteForContestant} />
+                    <input type = "button" value = "Vote" className = "submitVote" onClick = {voteForContestant} disabled = {disableVote} />
                     ):votedForThisContestant?<button className = "voterFor"><i className="far fa-check-circle fa-lg"></i></button>:<button className = "votedAgainst" ><i className="far fa-times-circle fa-lg"></i></button>}
                     </div>
             )

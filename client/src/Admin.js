@@ -187,7 +187,6 @@ const Admin = ({adminAuthenticated,history})=>{
   )
   }
   else{
-    console.log('Admin')
     history.push('/vote')
     return null
   }

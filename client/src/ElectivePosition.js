@@ -11,8 +11,8 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
         if(categoryArr.includes(myEgcaNum)){
             setButtonisDisabled(true)
         }
-        //eslint-disable-next-line
-    },[])
+        
+    },[myEgcaNum,setButtonisDisabled,categoryArr])
 
     const updateCategoryVotes = (votes)=>{
         setTotCatVotes(votes)

@@ -5,7 +5,6 @@ import {adminLogin} from './actions/adminActions'
 import {loading,notLoading} from './actions/loadingActions'
 import DisplayErrorMessage from './DisplayErrorMessage'
 import ElectivePosition from './ElectivePosition'
-import Loading from './Loading'
 import './VoteNominees.css'
 //import {displayMessage,dontDisplayMessage} from './actions/messageActions'
 
@@ -14,25 +13,40 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
     const[arrOfContestants,setArrOfContestants] = useState([])
     const[myEgcaNum,setMyEgcaNum] = useState(0)
     const[failedFetch,setFailedFetch] = useState(false)
+    
 
     useEffect(()=>{
+      let unmounted = false;
+      let source = axios.CancelToken.source()
       const fetch = async()=>{
-        try {
-          load()
-          const {data:{eleObj:electionArr,myEgcaNum}} = await axios.get('/election/details',{headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json',
-            'X-Auth-Token':localStorage.getItem('token')
-         }})
-         setMyEgcaNum(myEgcaNum)
+        if(!unmounted){
+           try {
+            load()
+            const {data:{eleObj:electionArr,myEgcaNum}} = await axios.get('/election/details',{headers:{
+              'Accept':'application/json',
+              'Content-Type':'application/json',
+              'X-Auth-Token':localStorage.getItem('token')
+            },cancelToken: source.token})
+            setMyEgcaNum(myEgcaNum)
             setArrOfContestants(electionArr)
-        } catch (error) {
-          setFailedFetch(true)
-          console.log(error.message)
-        }
-       stopLoading()
+            } catch (error) {
+              setFailedFetch(true)
+              console.log(error.message)
+              if (axios.isCancel(error)) {
+                console.log(`request cancelled:${error.message}`);
+            } else {
+                console.log("another error thrown:" + error.message);
+            }
+            }
+            stopLoading()
+          }
+        
       }
       fetch()
+      return function cleanUp(){
+        unmounted = true
+        source.cancel("Cancelling in cleanup");
+      }
       //eslint-disable-next-line
     },[])
 
@@ -62,18 +76,19 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
         history.push('/')
     }
         if(userAuthenticated){
-          if(!isLoading){
             if(!failedFetch){
                return(
               <div className = "voteNomineesWrapper">
                   {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
                     <div className = "headerTab">
                       <i className="fas fa-home" onClick = {goHome}></i>
-                      <div>Welcome <span>{name}</span>.Please Proceed To Vote.</div>
-                      <button onClick = {handleLogin}>Add Contestants</button> 
-                    </div>
-                    {arrOfContestants.map(({allVotes,contestants,position},i)=>{
-                      return <ElectivePosition myEgcaNum = {myEgcaNum} categoryArr = {allVotes}  totalVotes = {allVotes.length} contestants = {contestants} position = {position} key = {i} />
+                      <div>Welcome <span style = {{textTransform:'capitalize'}}>{name}</span>.Please Proceed To Vote.</div>
+                      <button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button> 
+                    </div> 
+                    {arrOfContestants.map(({allVotes,contestants,position},i)=>{ 
+                      return <ElectivePosition myEgcaNum = {myEgcaNum} categoryArr = {allVotes}  totalVotes = {allVotes.length}
+                                               contestants = {contestants} position = {position} key = {i} 
+                                               /> 
                     })}
               </div>              
             )
@@ -88,11 +103,6 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
                 
               )
             }
-          }
-          else{
-            return <Loading />
-          }
-
         }
         else{
             history.push('/')

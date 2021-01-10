@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {LOADING,NOT_LOADING,ADMIN_AUTH_SUCCESS,ADMIN_AUTH_FAILURE} from './constants/constants'
 export const adminLogin = ()=> async(dispatch)=>{
+   
    dispatch({
       type:LOADING
    })

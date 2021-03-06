@@ -11,27 +11,53 @@
   }
 
   .box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     opacity: 0.8;
     width: 80%;
-    height:95%;
+    height:auto;
     background-color: white;
+    padding-bottom: 22px;
   }
 
+.heading_wrapper{
+  display: flex;
+}
+
+.heading_wrapper>img{
+  display: inline-block;
+  width: 3.66vw;
+  height: 3.66vw;
+  padding-top: 10px;
+}
+
   .wrapper div h1{
+    font-size: 2.34vw;
     text-align: center;
     font-family: 'Roboto', sans-serif;
+    padding-right: 10px;
+  }
+
+  .wrapper div h2{
+    font-size: 1.757vw;
+    font-family: 'Akaya Telivigala', cursive;
+    color: brown;
+    padding:0px 10px;
   }
   
   .elements{
     padding-top: 15px;
   }
   .elements div{
-    margin-bottom: 30px;
+    margin-bottom: 2.196vw;
   }
 
   .elements div label{
+    font-size: 1.1713vw;
     display: inline-block;
-    width: 130px;
+    width: 9.52vw;
     font-weight: bold;
     
   }
@@ -52,8 +78,8 @@
 
 .calendar_btn{
   background: url('images/calendar.jpg');
-  width:25px;
-  height: 25px;
+  width:1.83vw;
+  height: 1.83vw;
   border: none;
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,6 +90,7 @@
     width:30%;
     padding:10px 5px;
     outline: none;
+    font-size: 0.976vw;
   }
   #proceed:not(:disabled):hover{
     color:white;
@@ -77,26 +104,16 @@
     margin:0px;
   }
 
-  legend{
-    font-weight: bold;
-    font-style: italic;
-    color: darkblue;
+  .imgSpan>img{
+    display: inline-block;
+    width: 1.83vw;
+    height: 1.83vw;
   }
 
   @media only screen and (max-height:700px){
     .elements{
       padding-top: 10px;
     }
-    .elements div{
-      margin-bottom: 20px;
-    }
-    
-    .elements div label{
-      
-      width: 130px;
-      
-    }
-    
     .elements div input[type="text"],input[type="email"]{
       width: 200px;
     }
@@ -104,42 +121,18 @@
   }
 
   @media screen and (max-width:600px){
-    .elements div label{
-      width: 70px;
-    }
-
     .elements div input[type="text"],input[type="email"]{
       width: 150px;
-    }
-
-    .wrapper div h1{
-      font-size: 16px;
     }
   }
 
   @media screen and (max-width:370px){
-    .elements div label{
-      width: 60px;
-      font-size: 12px;
-    }
-
     .elements div input[type="text"],input[type="email"]{
       width: 120px;
     }
 
-    .wrapper div h1{
-      font-size: 16px;
-    }
-    legend{
-      font-size: 10px;
-    }
   }
   @media screen and (max-width:340px){
-    .elements div label{
-      width: 50px;
-      font-size: 11px;
-    }
-
     .elements div input[type="text"],input[type="email"]{
       width: 100px;
     }
@@ -150,26 +143,12 @@
   }
 
   @media screen and (max-width:300px){
-    .elements div label{
-      width: 40px;
-      font-size: 10px;
-    }
-
     .elements div input[type="text"],input[type="email"]{
       width: 80px;
     }
 
-    .wrapper div h1{
-      font-size: 14px;
-    }
-    legend{
-      font-size: 8px;
-    }
   }
   @media only screen and (min-height:750px) and (orientation:landscape){
-    .elements div{
-      margin-bottom: 50px;
-    }
     .wrapper{
       height: 120vh;
      
@@ -177,32 +156,46 @@
   
   }
 
-  @media only screen and (min-height:850px) and (orientation:landscape){
-    .elements div{
-      margin-bottom: 65px;
-    }
-  }
   @media only screen and (min-height:950px){
-    .elements div{
-      margin-bottom: 80px;
-    }
     .wrapper{
       height: 120vh;
     }
   }
 
-  @media only screen and (min-height:1200px){
-    .elements div{
-      margin-bottom: 115px;
-    }
-
-  }
   @media screen and (orientation:portrait){
     .box{
       height:auto;
-      width: auto;
+      width: 90%;
     }
-   
+
+    .elements div{
+      margin-bottom: 2.196vh;
+    }
+   .wrapper div h1{
+     font-size: 2.34vh; 
+   }
+   .heading_wrapper>img {
+    width: 3.66vh;
+    height: 3.66vh; 
+}
+.wrapper div h2 {
+  font-size: 1.757vh;
+}
+.elements div label {
+  font-size: 1.1713vh;
+  width: 9.52vh;
+ 
+}
+
+.calendar_btn {
+  width: 1.83vh;
+  height: 1.83vh;
+}
+
+.imgSpan>img{
+  width: 1.83vh;
+  height: 1.83vh;
+}
   }
   @media screen and (max-height:550px) and (orientation:landscape){
     .wrapper{

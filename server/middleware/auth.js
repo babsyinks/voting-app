@@ -18,7 +18,7 @@ const auth = async (req,res,next)=>{
 
     const user = await Egca.findById(verifyObj.user.id) 
     
-    const permittedUsers = [67,80,963]
+    const permittedUsers = [67]
     if(permittedUsers.includes(user.egcaNum)){
         next()
     }

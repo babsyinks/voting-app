@@ -7,7 +7,6 @@ require('dotenv').config({ debug: process.env.DEBUG })
 const electionAuth = async (req,res,next)=>{
 
     try {
-
     const token = req.header('X-Auth-Token') || req.cookies.token
          
     if(typeof token !== 'string'){ 

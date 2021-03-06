@@ -46,9 +46,9 @@ app.get('*',(req,res)=>{
 })
 
 app.use((err,req,res,next)=>{
-    res.send({err})
+    res.send({err}) 
 })
 
 app.listen(port,()=>{ 
     console.log(`Server listening on port ${port}`)  
-}) 
+})    

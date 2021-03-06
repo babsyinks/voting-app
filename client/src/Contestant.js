@@ -19,13 +19,6 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
         return votePercent
     }
 
-/*     const getImage = ()=>{
-        const b64 = new Buffer.from(picture).toString('base64')
-        const mimeType = 'image/png'
-
-       return `data:${mimeType};base64,${b64}`
-    } */
-
     const getManifesto = ()=>{
         setManifesto(true)
     }
@@ -58,9 +51,6 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
          handleDisableButton()
          setDisableVote(false)
     }
-
-
-
     if(!readManifesto){
         return(
                 <div className = "contestant">

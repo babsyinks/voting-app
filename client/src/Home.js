@@ -1,34 +1,42 @@
-import React,{useState,useEffect,Fragment} from 'react'
+import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
-import validator from 'validator'
 import axios from 'axios'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import DisplayErrorMessage from './DisplayErrorMessage'
 import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
-//import {displayMessage,dontDisplayMessage} from './actions/messageActions'
 import './Home.css';
 import { setUserInfo } from './actions/userInfoAction'
+import AddEmail from './AddEmail'
 
-function Home({history,grantAccess,denyAccess,setInfo}) {
+export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
+  const trimmedStr = value.replace(/\s/g,'') 
+  const valid = validator(trimmedStr)
+  setVal(value.replace(/\s+/g,''))
+  setValidity(valid)
+  value.length?setIsSet(true):setIsSet(false)
+}
+
+function Home({history,grantAccess,denyAccess,setInfo,userInformation}) {
   const[isDisabled,setIsDisabled] = useState(true)
-  const[surname,setSurname] = useState('')
-  const[surnameIsValid,setSurnameIsValid] = useState(false)
-  const[isSurnameSet,setIsSurnameSet] = useState(false)
-  const[firstName,setFirstName] = useState('')
-  const[firstNameIsValid,setFirstNameIsValid] = useState(false)
-  const[isFirstNameSet,setIsFirstNameSet] = useState(false)
+  //const[surname,setSurname] = useState('')
+  //const[surnameIsValid,setSurnameIsValid] = useState(false)
+  //const[isSurnameSet,setIsSurnameSet] = useState(false)
+  //const[firstName,setFirstName] = useState('')
+  //const[firstNameIsValid,setFirstNameIsValid] = useState(false)
+  //const[isFirstNameSet,setIsFirstNameSet] = useState(false)
   const[egcaNum,setEgcaNum] = useState('')
   const[egcaNumIsValid,setEgcaNumIsValid] = useState(false)
   const[isEgcaNumSet,setIsEgcaNumSet] = useState(false)
-  const[email,setEmail] = useState('')
+  const[openEmailPage,setOpenEmailPage] = useState(false)
+/*   const[email,setEmail] = useState('')
   const[emailIsValid,setEmailIsValid] = useState(false)
-  const[isEmailSet,setIsEmailSet] = useState(false)
-  const[maidenName,setMaidenName] = useState('')
-  const[maidenNameIsValid,setMaidenNameIsValid] = useState(false)
-  const[isMaidenNameSet,setIsMaidenNameSet] = useState(false)
-  const[marital_status,setMarital_Status] = useState('single')
-  const[gender,setGender] = useState("male")
+  const[isEmailSet,setIsEmailSet] = useState(false) */
+  //const[maidenName,setMaidenName] = useState('')
+  //const[maidenNameIsValid,setMaidenNameIsValid] = useState(false)
+  //const[isMaidenNameSet,setIsMaidenNameSet] = useState(false)
+  //const[marital_status,setMarital_Status] = useState('single')
+  //const[gender,setGender] = useState("male")
   const [value, onChange] = useState(new Date());
   const[showCalendar,setShowCalendar] = useState(false)
   const[showDateText,setShowDateText] = useState(false)
@@ -36,14 +44,14 @@ function Home({history,grantAccess,denyAccess,setInfo}) {
   const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
 
   useEffect(() => {
-    if(emailIsValid&& surnameIsValid && firstNameIsValid && egcaNumIsValid && dateText && ((gender === "female" && marital_status === "married")?maidenNameIsValid:true)){
+    if(egcaNumIsValid && dateText){
         setIsDisabled(false)
     }
     else{
         setIsDisabled(true)
     }
 
-}, [emailIsValid,surnameIsValid,firstNameIsValid,egcaNumIsValid,dateText,maidenNameIsValid,gender,marital_status])
+}, [egcaNumIsValid,dateText])
 
 /*   useEffect(()=>{
     let mounted = true
@@ -60,14 +68,6 @@ function Home({history,grantAccess,denyAccess,setInfo}) {
   //eslint-disable-next-line
   },[showMsg])
  */
-const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
-  
-  const trimmedStr = value.replace(/\s/g,'') 
-  const valid = validator(trimmedStr)
-  setVal(value.replace(/\s+/g,''))
-  setValidity(valid)
-  value.length?setIsSet(true):setIsSet(false)
-}
 
 const egcaNumValidator = (val)=>{
   const rawInput = +val
@@ -78,31 +78,13 @@ const egcaNumValidator = (val)=>{
     return true
   }
 }
-const setValidSurname = (e)=>{
-  const value = e.target.value
-  validateVal(value,validator.isAlpha,setSurname,setSurnameIsValid,setIsSurnameSet)
-}
-
-const setValidFirstName = (e)=>{
-  const value = e.target.value
-  validateVal(value,validator.isAlpha,setFirstName,setFirstNameIsValid,setIsFirstNameSet)
-}
-const setValidEmail = (e)=>{
-  const value = e.target.value
-  validateVal(value,validator.isEmail,setEmail,setEmailIsValid,setIsEmailSet)
-}
 
 const setValidEgcaNum = (e)=>{
   const value = e.target.value
   validateVal(value,egcaNumValidator,setEgcaNum,setEgcaNumIsValid,setIsEgcaNumSet)
 }
 
-const setValidMaidenName = (e)=>{
-  const value = e.target.value
-  validateVal(value,validator.isAlpha,setMaidenName,setMaidenNameIsValid,setIsMaidenNameSet)
-}
-
-const onChangeGender = (e)=>{
+/* const onChangeGender = (e)=>{
   setGender(e.target.value)
   if(maidenName !== ''){
     setMaidenName('')
@@ -118,7 +100,7 @@ const onMaritalStausChange = (e)=>{
     setIsMaidenNameSet(false)
     setMaidenNameIsValid(false)
   }
-}
+} */
 
 const openCalendar = (e)=>{
   setShowCalendar(true)
@@ -142,13 +124,8 @@ const setAlert = (cls,message)=>{
 }
 
 const handleSubmit = async (e)=>{
-  const alumniInfo = {surname,firstName,email,egcaNum,gender,dateText}
-  if(gender === "female"){
-    alumniInfo.maritalStatus = marital_status
-    if(marital_status === "married"){
-      alumniInfo.maidenName = maidenName
-    }
-  }
+  const alumniInfo = {egcaNum,dateText}
+
   try {
     const {data:{token,egcaNum,name}} = await axios.post('/auth/checkIdentity',alumniInfo)
 
@@ -156,7 +133,7 @@ const handleSubmit = async (e)=>{
       localStorage.setItem('token',token)
       grantAccess()
       setInfo(egcaNum,name)
-      history.push('/vote')
+      setOpenEmailPage(true)
     }
     else{
       denyAccess()
@@ -167,31 +144,20 @@ const handleSubmit = async (e)=>{
   } catch (error) {
     denyAccess()
     setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
-    //showMsg()
   }
-
 }
-  return (
+
+if(openEmailPage){
+  return <AddEmail history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} />
+}
+else{
+    return (
     <div className = "wrapper">
       {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
       <div className = "box">
-        <h1>EGCA Alumni Voting App</h1>
-        <fieldset>
-          <legend>Please Provide Your Information Below!</legend>
+        <div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>
+        <h2>Welcome! Please provide your information below:</h2>
           <div className = "elements">
-            <div>
-              <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} ></input>
-              {isEmailSet && <span className = "imgSpan"><img src = {emailIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts email validity"/></span>}
-            </div>
-            
-            <div>
-              <label htmlFor='surname'>Surname:</label><input type = "text" name = "surname" value = {surname} onChange = {setValidSurname} ></input>
-              {isSurnameSet && <span className = "imgSpan"><img src = {surnameIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts surname validity"/></span>}
-            </div>
-            <div>
-              <label htmlFor='firstName'>First Name:</label><input type = "text" name = "firstName" value = {firstName} onChange = {setValidFirstName} ></input>
-              {isFirstNameSet && <span className = "imgSpan"><img src = {firstNameIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts first name validity"/></span>}
-            </div>
             <div>
               <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} ></input>
               {isEgcaNumSet && <span className = "imgSpan"><img src = {egcaNumIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts EGCA Number validity"/></span>}
@@ -200,43 +166,19 @@ const handleSubmit = async (e)=>{
               <label htmlFor='dob'>Date Of Birth:</label>
               {showDateText && <input type = "text" name = "dateText" value = {dateText} readOnly = {true} ></input>}{!showCalendar && <button onClick = {openCalendar} className = "calendar_btn"></button>}
             </div>  
-            
-            
-              <div>
-                <label htmlFor='gender'>Sex:</label>
-                <span>
-                  <input type = "radio" name = "gender" value = "male" onChange = {onChangeGender} checked = {gender === "male"}></input><label>Male</label>
-                  <input type = "radio" name = "gender" value = "female" onChange = {onChangeGender} checked = {gender === "female"}></input><label>Female</label>
-                </span>             
-              </div>
-              {gender === "female" && (
-              <Fragment>
-                <div>
-                  <label htmlFor='marital_status'>Marital Status:</label>
-                  <span>
-                    <input type = "radio" name = "marital_status" value = "single" onChange = {onMaritalStausChange} checked = {marital_status === "single"}></input><label>Single</label>
-                    <input type = "radio" name = "marital_status" value = "married" onChange = {onMaritalStausChange} checked = {marital_status === "married"}></input><label>Married</label>
-                  </span>                  
-                </div>
-                {marital_status === "married" && (
-                  <div>
-                    <label htmlFor='maidenName'>Maiden Name:</label><input type = "text" name = "maidenName" value = {maidenName} onChange = {setValidMaidenName} ></input>
-                    {isMaidenNameSet && <span className = "imgSpan"><img src = {maidenNameIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts maiden name validity"/></span>}
-                  </div>
-                )}
-              </Fragment>)}
           </div>
           {showCalendar && <span className = 'calendar'><Calendar onChange={setCalendarDate} value={value}/></span>}
           <input id = "proceed" type = "button" value = "Proceed" disabled = {isDisabled} onClick = {handleSubmit}></input>
-        </fieldset>
       </div>
   
     </div>
   );
 }
 
-/* const mapStateToProps = (state)=>({
-  shouldMessageShow:state.showMessage
+}
+
+const mapStateToProps = (state)=>({
+  userInformation:state.userInfo
 })
- */
-export default  connect(null,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);
+
+export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);

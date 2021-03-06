@@ -6,4 +6,4 @@ mongoose.connect(connStr,{useNewUrlParser: true, useUnifiedTopology: true,useCre
 .then(()=>{
     console.log('connected to EgcaVoteDB successfully')
 })
-.catch(e=>`connection failed with error: ${e.message}`) 
+.catch(e=>`connection failed with error: ${e.message}`)   

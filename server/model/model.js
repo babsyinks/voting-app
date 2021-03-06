@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 const egcaSchema = new mongoose.Schema({
    email:{
-       type:String,
-       unique:true,
+       type:String, 
        trim:true
    },
    surname:{

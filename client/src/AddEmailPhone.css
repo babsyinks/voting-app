@@ -1,0 +1,7 @@
+ input[type="text"],input[type="email"]{
+    border: 0px;
+    border-bottom: 1px solid grey;
+    outline: none;
+    display: inline-block;
+    width: 300px;
+  }

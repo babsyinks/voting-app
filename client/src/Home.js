@@ -7,7 +7,7 @@ import DisplayErrorMessage from './DisplayErrorMessage'
 import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
 import './Home.css';
 import { setUserInfo } from './actions/userInfoAction'
-import AddEmail from './AddEmail'
+import AddEmailPhone from './AddEmailPhone'
 
 export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   const trimmedStr = value.replace(/\s/g,'') 
@@ -17,32 +17,18 @@ export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   value.length?setIsSet(true):setIsSet(false)
 }
 
-function Home({history,grantAccess,denyAccess,setInfo,userInformation}) {
+function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote}) {
   const[isDisabled,setIsDisabled] = useState(true)
-  //const[surname,setSurname] = useState('')
-  //const[surnameIsValid,setSurnameIsValid] = useState(false)
-  //const[isSurnameSet,setIsSurnameSet] = useState(false)
-  //const[firstName,setFirstName] = useState('')
-  //const[firstNameIsValid,setFirstNameIsValid] = useState(false)
-  //const[isFirstNameSet,setIsFirstNameSet] = useState(false)
   const[egcaNum,setEgcaNum] = useState('')
   const[egcaNumIsValid,setEgcaNumIsValid] = useState(false)
   const[isEgcaNumSet,setIsEgcaNumSet] = useState(false)
-  const[openEmailPage,setOpenEmailPage] = useState(false)
-/*   const[email,setEmail] = useState('')
-  const[emailIsValid,setEmailIsValid] = useState(false)
-  const[isEmailSet,setIsEmailSet] = useState(false) */
-  //const[maidenName,setMaidenName] = useState('')
-  //const[maidenNameIsValid,setMaidenNameIsValid] = useState(false)
-  //const[isMaidenNameSet,setIsMaidenNameSet] = useState(false)
-  //const[marital_status,setMarital_Status] = useState('single')
-  //const[gender,setGender] = useState("male")
+  const[openEmailPhonePage,setOpenEmailPhonePage] = useState(false)
   const [value, onChange] = useState(new Date());
   const[showCalendar,setShowCalendar] = useState(false)
   const[showDateText,setShowDateText] = useState(false)
   const[dateText,setDateText] = useState('')
   const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
-
+  const[emailPhone,setEmailPhone] = useState(null)
   useEffect(() => {
     if(egcaNumIsValid && dateText){
         setIsDisabled(false)
@@ -84,24 +70,6 @@ const setValidEgcaNum = (e)=>{
   validateVal(value,egcaNumValidator,setEgcaNum,setEgcaNumIsValid,setIsEgcaNumSet)
 }
 
-/* const onChangeGender = (e)=>{
-  setGender(e.target.value)
-  if(maidenName !== ''){
-    setMaidenName('')
-    setIsMaidenNameSet(false)
-    setMaidenNameIsValid(false)
-  }
-}
-
-const onMaritalStausChange = (e)=>{
-  setMarital_Status(e.target.value)
-  if(maidenName !== ''){
-    setMaidenName('')
-    setIsMaidenNameSet(false)
-    setMaidenNameIsValid(false)
-  }
-} */
-
 const openCalendar = (e)=>{
   setShowCalendar(true)
 }
@@ -127,35 +95,55 @@ const handleSubmit = async (e)=>{
   const alumniInfo = {egcaNum,dateText}
 
   try {
-    const {data:{token,egcaNum,name}} = await axios.post('/auth/checkIdentity',alumniInfo)
+    const {data:{token,egcaNum,name,email_phone}} = await axios.post('/auth/checkIdentity',alumniInfo)
 
     if(token){
       localStorage.setItem('token',token)
       grantAccess()
       setInfo(egcaNum,name)
-      setOpenEmailPage(true)
+      if(email_phone.saved){
+        if(toVote){
+          history.push('/vote')
+        }
+        else{
+          setEmailPhone(email_phone)
+          setOpenEmailPhonePage(true)
+        }
+        
+      }
+      else{
+        setOpenEmailPhonePage(true)
+      }
     }
     else{
       denyAccess()
       setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
-      //showMsg()
     }
-    
   } catch (error) {
     denyAccess()
     setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
   }
 }
 
-if(openEmailPage){
-  return <AddEmail history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} />
+const reset = ()=>{
+  setOpenEmailPhonePage(false)
+  setEgcaNum('')
+  setDateText('')
+  setIsEgcaNumSet(false)
+  setShowDateText(false)
+}
+
+if(openEmailPhonePage){
+  return <AddEmailPhone history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} toVote = {toVote} emailPhoneHandler = {reset} emailPhone = {emailPhone} />
 }
 else{
     return (
     <div className = "wrapper">
       {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
       <div className = "box">
-        <div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>
+        {toVote?<div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>:(
+          <div className="heading_wrapper"><h1>EGCA Alumni Data Updating App</h1><img src='egca_logo.png' alt = 'egca logo'/></div>
+        )}
         <h2>Welcome! Please provide your information below:</h2>
           <div className = "elements">
             <div>

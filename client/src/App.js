@@ -11,8 +11,8 @@ return(
     <div className = "app">
         <BrowserRouter>
             <Switch>
-                <Route exact path = '/' render = {()=> <Home toVote = {true} />} />
-                <Route exact path = '/info' render = {()=> <Home toVote = {false}/>} />
+                <Route exact path = '/' render = {(props)=> <Home toVote = {true} {...props} />} />
+                <Route exact path = '/info' render = {(props)=> <Home toVote = {false} {...props} />} />
                 <Route exact path = '/admin' component = {Admin} />
                 <Route exact path = '/vote' component = {VoteNominees}/>
                 <Route component = {NotFound} />

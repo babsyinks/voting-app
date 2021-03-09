@@ -1,0 +1,50 @@
+.backdrop{
+    position:absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 10; 
+    background-color: rgb(0, 0, 0,0.8);
+ 
+ }
+ 
+ .modal{
+     display: flex;
+     flex-direction: column;
+     position:absolute;
+     justify-content: center;
+     align-items: center;
+     padding:10px;
+     top: 0;
+     bottom: 0;
+     right:0;
+     left: 0;
+     background-color: white;
+     border:0px solid black;
+     width:50%;
+     height: fit-content;
+     max-height: 60%;
+     margin:auto;
+     z-index: 50;
+ }
+
+ #modal_msg{
+    padding:10px 5px;
+    font-family: 'Roboto', sans-serif;
+}
+#modal_positive,#modal_negative{
+   padding: 5px 10px;
+   margin:5px 10px;
+   color: white;
+   border:none;
+   outline: none;
+   font-family: 'Roboto', sans-serif;
+   cursor: pointer;
+}
+#modal_positive{
+   background-color: green;
+}
+#modal_negative{
+   background-color:red;
+}

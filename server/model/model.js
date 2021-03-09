@@ -30,6 +30,10 @@ const egcaSchema = new mongoose.Schema({
    dob:{
     type:String,
     required:[true,'Date of birth is required']
+   },
+   phone:{
+       type:String,
+       required:[true,'Phone number is required']
    }
 })
 

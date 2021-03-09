@@ -55,9 +55,10 @@ Router.post('/checkIdentity',async (req,res)=>{
         const arrOfInfos = Object.values(validObj)
         const statusOfInfos = arrOfInfos.every((val)=>val)
         if(statusOfInfos){
+            const email_phone = (egcaObj.email.length > 0 && egcaObj.phone.length >0)?{email:egcaObj.email,phone:egcaObj.phone,saved:true}:{saved:false}
             const token = jwt.sign({user:{id:egcaObj.id}},process.env.TOKEN_SECRET,{expiresIn:24*60*60})
             res.cookie('token',token,{httpOnly:true,expires:new Date(Date.now() + 24*60*60*1000)})
-            res.json({egcaNum,name:`${egcaObj.surname} ${egcaObj.firstName}`,token}) 
+            res.json({egcaNum,name:`${egcaObj.surname} ${egcaObj.firstName}`,token,email_phone}) 
         }
         else{
             res.json({validObj})
@@ -69,24 +70,27 @@ Router.post('/checkIdentity',async (req,res)=>{
 
 })
 
-Router.post('/email',electionAuth,async(req,res)=>{
+Router.post('/email_phone',electionAuth,async(req,res)=>{
     const egcaAlumnus = await Egca.findOne({egcaNum:req.user.myEgcaNum})
-    const {email} = req.body
-    if(email.length>0){
+    const {email,phone} = req.body
+    if(email.length>0 && phone.length>0){
         const trimmedEmail = email.replace(/\s/g,'') 
         const validEmail = validator.isEmail(trimmedEmail)
-        if(validEmail){
+        const trimmedPhone = phone.replace(/\s/g,'')
+        const validPhone = validator.isMobilePhone(trimmedPhone)
+        if(validEmail && validPhone){
             egcaAlumnus.email = trimmedEmail
+            egcaAlumnus.phone = trimmedPhone
             await egcaAlumnus.save()
-            res.json({message:'Email Saved'})
+            res.json({message:'Email And Phone Number Saved'})
         }
         else{
-            res.status(400).send({message:'Invalid Email'})
+            res.status(400).send({message:'Invalid Email Or Phone Number'})
         }
 
     }
     else{
-        res.status(400).send({message:'Invalid Email'})
+        res.status(400).send({message:'Invalid Email Or Phone Number'})
     }
 
 })

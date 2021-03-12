@@ -165,6 +165,7 @@
   @media screen and (orientation:portrait){
     .box{
       height:auto;
+<<<<<<< HEAD
       width: 90%;
     }
 
@@ -196,6 +197,11 @@
   width: 1.83vh;
   height: 1.83vh;
 }
+=======
+      width: auto;
+    }
+   
+>>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
   }
   @media screen and (max-height:550px) and (orientation:landscape){
     .wrapper{

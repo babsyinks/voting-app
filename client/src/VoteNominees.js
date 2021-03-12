@@ -82,11 +82,7 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
                   {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
                     <div className = "headerTab">
                       <i className="fas fa-home" onClick = {goHome}></i>
-<<<<<<< HEAD
                       <div>Welcome <span style = {{textTransform:'capitalize'}}>{name.toLowerCase()}.</span> Please Proceed To Vote.</div>
-=======
-                      <div>Welcome <span style = {{textTransform:'capitalize'}}>{name}</span>.Please Proceed To Vote.</div>
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
                       <button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button> 
                     </div> 
                     {arrOfContestants.map(({allVotes,contestants,position},i)=>{ 

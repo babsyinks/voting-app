@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
-=======
-import React,{useState,useEffect,Fragment} from 'react'
-import {connect} from 'react-redux'
-import validator from 'validator'
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 import axios from 'axios'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import DisplayErrorMessage from './DisplayErrorMessage'
 import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
-<<<<<<< HEAD
 import './Home.css';
 import { setUserInfo } from './actions/userInfoAction'
 import AddEmailPhone from './AddEmailPhone'
@@ -25,13 +18,6 @@ export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
 }
 
 function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote}) {
-=======
-//import {displayMessage,dontDisplayMessage} from './actions/messageActions'
-import './Home.css';
-import { setUserInfo } from './actions/userInfoAction'
-
-function Home({history,grantAccess,denyAccess,setInfo}) {
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
   const[isDisabled,setIsDisabled] = useState(true)
   const[egcaNum,setEgcaNum] = useState('')
   const[egcaNumIsValid,setEgcaNumIsValid] = useState(false)
@@ -42,11 +28,7 @@ function Home({history,grantAccess,denyAccess,setInfo}) {
   const[showDateText,setShowDateText] = useState(false)
   const[dateText,setDateText] = useState('')
   const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
-<<<<<<< HEAD
   const[emailPhone,setEmailPhone] = useState(null)
-=======
-
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
   useEffect(() => {
     if(egcaNumIsValid && dateText){
         setIsDisabled(false)
@@ -54,15 +36,9 @@ function Home({history,grantAccess,denyAccess,setInfo}) {
     else{
         setIsDisabled(true)
     }
-<<<<<<< HEAD
 
 }, [egcaNumIsValid,dateText])
 
-=======
-
-}, [emailIsValid,surnameIsValid,firstNameIsValid,egcaNumIsValid,dateText,maidenNameIsValid,gender,marital_status])
-
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 /*   useEffect(()=>{
     let mounted = true
    
@@ -78,17 +54,6 @@ function Home({history,grantAccess,denyAccess,setInfo}) {
   //eslint-disable-next-line
   },[showMsg])
  */
-<<<<<<< HEAD
-=======
-const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
-  
-  const trimmedStr = value.replace(/\s/g,'') 
-  const valid = validator(trimmedStr)
-  setVal(value.replace(/\s+/g,''))
-  setValidity(valid)
-  value.length?setIsSet(true):setIsSet(false)
-}
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 
 const egcaNumValidator = (val)=>{
   const rawInput = +val
@@ -130,17 +95,12 @@ const handleSubmit = async (e)=>{
   const alumniInfo = {egcaNum,dateText}
 
   try {
-<<<<<<< HEAD
     const {data:{token,egcaNum,name,email_phone}} = await axios.post('/auth/checkIdentity',alumniInfo)
-=======
-    const {data:{token,egcaNum,name}} = await axios.post('/auth/checkIdentity',alumniInfo)
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 
     if(token){
       localStorage.setItem('token',token)
       grantAccess()
       setInfo(egcaNum,name)
-<<<<<<< HEAD
       if(email_phone.saved){
         if(toVote){
           history.push('/vote')
@@ -154,27 +114,14 @@ const handleSubmit = async (e)=>{
       else{
         setOpenEmailPhonePage(true)
       }
-=======
-      history.push('/vote')
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
     }
     else{
       denyAccess()
       setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
-<<<<<<< HEAD
     }
   } catch (error) {
     denyAccess()
     setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
-=======
-      //showMsg()
-    }
-    
-  } catch (error) {
-    denyAccess()
-    setAlert('failed','Invalid Credentials!Please Enter Correct Information!!!')
-    //showMsg()
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
   }
 }
 
@@ -216,7 +163,6 @@ else{
   );
 }
 
-<<<<<<< HEAD
 }
 
 const mapStateToProps = (state)=>({
@@ -224,10 +170,3 @@ const mapStateToProps = (state)=>({
 })
 
 export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);
-=======
-/* const mapStateToProps = (state)=>({
-  shouldMessageShow:state.showMessage
-})
- */
-export default  connect(null,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9

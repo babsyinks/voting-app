@@ -26,22 +26,16 @@
     font-size: 2vw;
     font-weight: bold;
     color: rgb(48, 41, 41);
-<<<<<<< HEAD
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-=======
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 }
 
 .headerTab div span{
     color: rgb(0, 140, 255);
     font-weight: bold;
     font-size: 2vw;
-<<<<<<< HEAD
     font-family: 'Merienda', cursive;
     font-style: italic;
-=======
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 }
 
 .headerTab button{
@@ -73,7 +67,6 @@
     .headerTab button{
         height: 5vh;
     }
-<<<<<<< HEAD
 
     .headerTab div{
         font-size: 1.5vh;
@@ -87,6 +80,4 @@
         font-size: 2vh;
         padding-right: 10px;
     }
-=======
->>>>>>> 9d173ad383c7f6ebfc5b048150f3dbd3a8cf23e9
 }

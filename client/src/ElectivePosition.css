@@ -17,6 +17,7 @@
     color: white;
     margin:10px 5px;
     text-transform: capitalize;
+        font-family: 'Patrick Hand', cursive;
 }
 
 .electionIntro h2 span{

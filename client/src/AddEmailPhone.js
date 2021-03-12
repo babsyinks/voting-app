@@ -122,17 +122,22 @@ const{message,positiveBtnText,showPositiveBtn,negativeBtnText,showNegativeBtn,po
     return (
             <div className="outer_add">
                 <div className = "inner_add">
-                    <h2>{`Hello, ${name}. Its great to have you here.`}</h2>
+                    <h2 className = "header_add"><span>Hello </span><span className = "name_ep">{`${name.toLowerCase()}`}</span><span> , its great to have you here.</span></h2>
                     <div className = "pic_add">
-                        <img src= {currentLink} alt="guides user to enter email and phone number"/>
+                      {openModal?<img src= "thankyou.jpg" alt="thanks user for submitting form"/>:<img src= {currentLink} alt="guides user to enter email and phone number"/>}  
                     </div>
-                    {emailPhone && <h2>You previously submitted your email and phone number.You can edit and resubmit them below:</h2>}
+                    {emailPhone && <h2 className = "alreadySub">Your details have been submitted before.Edit them below:</h2>}
                     <div className = "form_add">
-                    <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} ></input>
-                    {isEmailSet && <span className = "imgSpan"><img src = {emailIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts email validity"/></span>}
-                    <label htmlFor='phone'>Phone Number:</label><input type = "text" name = "phone" value = {phone} onChange = {setValidPhone} ></input>
-                    {isPhoneSet && <span className = "imgSpan"><img src = {phoneIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts phone number validity"/></span>}
-                    <input id = "proceed" type = "button" value = "Submit" disabled = {isDisabled} onClick = {handleSubmit}></input>
+                      <div className = "input_ep">
+                        <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} style = {{borderColor:emailIsValid?'green':'red',color:emailIsValid?'green':'red'}} ></input>
+                        {isEmailSet && <span className = "imgSpan"><img src = {emailIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts email validity"/></span>}
+                      </div>
+                      <div className = "input_ep">
+                        <label htmlFor='phone'>Phone Number:</label><input type = "text" name = "phone" value = {phone} onChange = {setValidPhone} style = {{borderColor:phoneIsValid?'green':'red',color:phoneIsValid?'green':'red'}} ></input>
+                        {isPhoneSet && <span className = "imgSpan"><img src = {phoneIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts phone number validity"/></span>}
+                      </div>
+                    
+                    <input id = "proceed" className = "sub" type = "button" value = "Submit" disabled = {isDisabled} onClick = {handleSubmit}></input>
                     </div>
                 </div>
                 {openModal && <Modal message = {message} positiveBtnTxt = {showPositiveBtn && positiveBtnText}  negativeBtnTxt = {showNegativeBtn && negativeBtnText} positiveHandler = {positiveHandlerFn} negativeHandler = {negativeHandlerFn} />}

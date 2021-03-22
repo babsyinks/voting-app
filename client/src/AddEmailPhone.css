@@ -31,11 +31,12 @@
    font-size: 2vw;
    font-family: 'Old Standard TT', serif;
    font-style: italic;
+   color: white;
  }
   .name_ep{
-    color: cornflowerblue;
+    color: whitesmoke;
     text-transform: capitalize;
-    font-family: 'Caveat', cursive;
+    
   }
 
   .alreadySub{
@@ -52,6 +53,7 @@
     padding-right: 10px;
     font-family: 'Bad Script', cursive;
     font-size: 1.4vw;
+    color: white;
   }
 
   .pic_add img{

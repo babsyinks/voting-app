@@ -1,6 +1,7 @@
 import React, { useState,useEffect} from 'react'
 import Contestant from './Contestant'
 import './ElectivePosition.css'
+
 const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr})=>{
 
     const[totCatVotes,setTotCatVotes] = useState(totalVotes)
@@ -26,8 +27,16 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
     return(
         <div className = "electionDetails">
             <div className = "electionIntro">
-                <h2>Position: <span>{position}</span></h2>
-                <h3>Total Votes Cast: <span>{totCatVotes}</span></h3>                
+                <div className = "electionHead">
+                    <h2>Position: <span>{position}</span></h2>
+                </div>
+                <div className = "electionHead">
+                   <h3>Number Of Contestants: <span className = "numOfContestants">{contestants.length}</span></h3> 
+                </div>
+                <div className = "electionHead">
+                    <h3>Total Votes Cast: <span>{totCatVotes}</span></h3>
+                </div>
+                                
             </div>
 
             <div className = "listOfContestants">

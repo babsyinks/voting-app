@@ -1,4 +1,5 @@
 .contestant{
+    z-index: 30;
     padding: 10px;
     border: 2px solid rgb(199, 199, 199);
     border-radius: 5px;
@@ -270,5 +271,15 @@
 
 .votedAgainst i{
   color: red;
+}
+
+@media only screen and (max-width:300px){
+  .contestant img{
+    display: inline-block;
+    width:85vw;
+  }
+  .contestant{
+    width:90vw;
+  }
 }
 

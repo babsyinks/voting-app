@@ -129,15 +129,15 @@ const{message,positiveBtnText,showPositiveBtn,negativeBtnText,showNegativeBtn,po
                     {emailPhone && <h2 className = "alreadySub">Your details have been submitted before.Edit them below:</h2>}
                     <div className = "form_add">
                       <div className = "input_ep">
-                        <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} style = {{borderColor:emailIsValid?'green':'red',color:emailIsValid?'green':'red'}} ></input>
+                        <label htmlFor='email'>Email:</label><input type = "email" name = "email" value = {email} onChange = {setValidEmail} style = {{borderColor:emailIsValid?'green':'red',color:emailIsValid?'green':'rgb(190, 18, 18)'}} ></input>
                         {isEmailSet && <span className = "imgSpan"><img src = {emailIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts email validity"/></span>}
                       </div>
                       <div className = "input_ep">
-                        <label htmlFor='phone'>Phone Number:</label><input type = "text" name = "phone" value = {phone} onChange = {setValidPhone} style = {{borderColor:phoneIsValid?'green':'red',color:phoneIsValid?'green':'red'}} ></input>
+                        <label htmlFor='phone'>Phone Number:</label><input type = "text" name = "phone" value = {phone} onChange = {setValidPhone} style = {{borderColor:phoneIsValid?'green':'red',color:phoneIsValid?'green':'rgb(190, 18, 18)'}} ></input>
                         {isPhoneSet && <span className = "imgSpan"><img src = {phoneIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts phone number validity"/></span>}
                       </div>
                     
-                    <input id = "proceed" className = "sub" type = "button" value = "Submit" disabled = {isDisabled} onClick = {handleSubmit}></input>
+                    <input id = "proceed" className = "sub" type = "button" value = "Submit" disabled = {isDisabled} onClick = {handleSubmit}></input> 
                     </div>
                 </div>
                 {openModal && <Modal message = {message} positiveBtnTxt = {showPositiveBtn && positiveBtnText}  negativeBtnTxt = {showNegativeBtn && negativeBtnText} positiveHandler = {positiveHandlerFn} negativeHandler = {negativeHandlerFn} />}

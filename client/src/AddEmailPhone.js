@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import validator from 'validator'
 import {validateVal} from './Home'
-import {userNotAuthenticated} from './actions/userActions'
+import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
 import Modal from './Modal'
 import './AddEmailPhone.css'
 
-const AddEmailPhone = ({history,name,denyAccess,toVote,emailPhoneHandler,emailPhone})=>{
+const AddEmailPhone = ({history,name,grantAccess,denyAccess,toVote,emailPhoneHandler,emailPhone})=>{
 const[isDisabled,setIsDisabled] = useState(true)
 const[email,setEmail] = useState('')
 const[emailIsValid,setEmailIsValid] = useState(false)
@@ -73,6 +73,7 @@ const handleSubmit = async (e)=>{
         const {data:{message}} = await axios.post('/auth/email_phone',
         {email,phone},{headers:{'X-Auth-Token':localStorage.getItem('token'),'Accept':'application/json','Content-Type':'application/json'}})
         if(message === 'Email And Phone Number Saved'){
+          grantAccess()
           setOpenModal(true)
         }
         else{
@@ -122,7 +123,7 @@ const{message,positiveBtnText,showPositiveBtn,negativeBtnText,showNegativeBtn,po
     return (
             <div className="outer_add">
                 <div className = "inner_add">
-                    <h2 className = "header_add"><span>Hello </span><span className = "name_ep">{`${name.toLowerCase()}!`}</span></h2>
+                    <h2 className = "header_add"><span>Hi </span><span className = "name_ep">{`${name.toLowerCase()}!`}</span></h2>
                     <div className = "pic_add">
                       {openModal?<img src= "thankyou.jpg" alt="thanks user for submitting form"/>:<img src= {currentLink} alt="guides user to enter email and phone number"/>}  
                     </div>
@@ -152,5 +153,5 @@ const{message,positiveBtnText,showPositiveBtn,negativeBtnText,showNegativeBtn,po
     isLoading:state.isLoading
 }) */
 
-export default connect(null,{denyAccess:userNotAuthenticated})(AddEmailPhone)
+export default connect(null,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated})(AddEmailPhone)
 

@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import DisplayErrorMessage from './DisplayErrorMessage'
-//import {displayMessage,dontDisplayMessage} from './actions/messageActions'
 import './Admin.css'
 
 const Admin = ({adminAuthenticated,history})=>{
@@ -15,40 +14,6 @@ const Admin = ({adminAuthenticated,history})=>{
   let[resetFile,setResetFile] = useState(0)
   const[isDisabled,setIsDisabled] = useState(true)
   const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
- /*  const timer = useRef()
-  timer.current = ()=>setTimeout(()=>{
-      setDisplayAlert({display:false,cls:'',message:''})
-    },5000)
-
-  let timerRes = useRef()
-     */
-  
-/*    useEffect(()=>{
-    let mounted = true
-    if(mounted){
-      hideMsg()
-    }
-    return function cleanUp(){
-      mounted = false
-      clearTimeout(timer.current)
-    }
-    //eslint-disable-next-line
-  },[])  */
-
-/*   useEffect(()=>{
-    let mounted = true
-    if(mounted){
-     timer.current = setTimeout(()=>{
-      hideMsg()
-    },5000)
-    }
-    return function cleanUp(){
-      mounted = false
-      clearTimeout(timer.current)
-    }
-    //eslint-disable-next-line
-  },[showMsg,hideMsg]) */
-
 
   useEffect(()=>{
 
@@ -60,16 +25,6 @@ const Admin = ({adminAuthenticated,history})=>{
     }
 
   },[surname,firstName,post,manifesto,picture])
-
-/*   useEffect(()=>{
-    //let mounted = true
-
-    return function cleanUp(){
-      //mounted = false
-      clearTimeout(timerRes.current)
-    }
-    //eslint-disable-next-line
-  },[displayAlert]) */
 
   const onSetSurname = (e)=>{
     setSurname(e.target.value)
@@ -106,7 +61,6 @@ const Admin = ({adminAuthenticated,history})=>{
     setTimeout(()=>{
       setDisplayAlert({display:false,cls:'',message:''})
     },5000)
-   /* timerRes.current = timer.current() */
   }
 
   const handleSubmitVals = async(e)=>{

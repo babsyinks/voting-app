@@ -14,49 +14,24 @@ Router.post('/checkIdentity',async (req,res)=>{
         const{egcaNum,dateText} = req.body
         const egcaObj = await Egca.findOne({egcaNum})
 
-/*         const validateName = (nameFromFrontend,nameFromDB)=>{
-            nameFromFrontend = nameFromFrontend.toLowerCase()
-            nameFromDB = nameFromDB.toLowerCase()
-            if(nameFromFrontend.length>2 && nameFromDB.length>2){
-                return  nameFromFrontend.includes(nameFromDB) || nameFromDB.includes(nameFromFrontend) 
-            }
-            return false
-        } */
-
         const validateDOB = (dobFromFrontEnd,dobFromDB)=>{
             //date string of form 11/23/2005 is split into array storing month,day and year sequentially
-            const[monthFFE,dayFFE,yearFFE] = dobFromFrontEnd.split('/')
-            const [monthFDB,dayFDB,yearFDB] = dobFromDB.split('/')
+            const[dayFFE,monthFFE,yearFFE] = dobFromFrontEnd.split('/')
+            const [dayFDB,monthFDB,yearFDB] = dobFromDB.split('/')
             //create date obj using strings of form year,month,day sequentially and compare their time 
             return new Date(+yearFFE,+monthFFE-1,+dayFFE).getTime() === new Date(+yearFDB,+monthFDB-1,+dayFDB).getTime()
         }
-
-/*         const validateMaidenName = (maidenNameFFE,maidenFDB)=>{
-        return validateName(maidenNameFFE,maidenFDB) || validateName(maidenNameFFE,egcaObj.surname)
-        } */
-
         const validEgcaNum = +egcaNum === egcaObj.egcaNum
-        /* const validSurname = surname.toLowerCase() === egcaObj.surname.toLowerCase() ||validateName(surname,egcaObj.surname)
-        const validFirstName = firstName.toLowerCase() === egcaObj.firstName.toLowerCase()||validateName(firstName,egcaObj.firstName) */
+    
         const validDob = validateDOB(dateText,egcaObj.dob)
-/*         const validGender = gender.toLowerCase() === egcaObj.gender.toLowerCase() */
 
         const validObj = {validEgcaNum,validDob}
-      
-/*         if(egcaObj.email.length === 0){
-            egcaObj.email = email
-            await egcaObj.save()
-        }
-        if(gender === 'female' && req.body.maritalStatus === 'married'){
-            const validMaidenName = validateMaidenName(req.body.maidenName,egcaObj.maidenName)
-            validObj.validMaidenName = validMaidenName
-        } */
 
         const arrOfInfos = Object.values(validObj)
         const statusOfInfos = arrOfInfos.every((val)=>val)
         if(statusOfInfos){
             const email_phone = (egcaObj.email.length > 0 && egcaObj.phone.length >0)?{email:egcaObj.email,phone:egcaObj.phone,saved:true}:{saved:false}
-            const token = jwt.sign({user:{id:egcaObj.id}},process.env.TOKEN_SECRET,{expiresIn:24*60*60})
+            const token = jwt.sign({user:{id:egcaObj.id}},process.env.TOKEN_SECRET,{expiresIn:24*60*60*1000})
             res.cookie('token',token,{httpOnly:true,expires:new Date(Date.now() + 24*60*60*1000)})
             res.json({egcaNum,name:`${egcaObj.surname} ${egcaObj.firstName}`,token,email_phone}) 
         }

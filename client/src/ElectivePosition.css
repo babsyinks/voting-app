@@ -7,23 +7,41 @@
 
 .electionDetails{
     text-align: center;
+    z-index: 10;
 }
 
 .electionIntro{
+    display: grid;
     width: auto;
     border-radius: 5px;
     border: 2px solid white;
-    background-color: black;
+    background-color:rgba(0,0,0,0.9);
     color: white;
     margin:10px 5px;
     text-transform: capitalize;
         font-family: 'Patrick Hand', cursive;
 }
 
+ .electionIntro h2, .electionIntro h3{
+    z-index: 30;
+} 
+.electionHead{
+    z-index: 30;
+    background-color:rgba(0,0,0,0.9);
+}
 .electionIntro h2 span{
-    color: rgb(255, 0, 51);
+    color: rgb(0, 183, 255);
 }
 
 .electionIntro h3 span{
-    color: rgb(0, 255, 21);
+    color: rgb(0, 255, 128);
+}
+
+.electionIntro h3 span.numOfContestants{
+color: aqua;
+}
+
+.electionHead h2, .electionHead h3{
+    margin-top: 7px;
+    margin-bottom: 7px;
 }

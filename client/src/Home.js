@@ -39,25 +39,9 @@ function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote}) {
 
 }, [egcaNumIsValid,dateText])
 
-/*   useEffect(()=>{
-    let mounted = true
-   
-    if(mounted){
-      timer.current = setTimeout(()=>{
-      hideMsg()
-    },5000)
-    }
-    return function cleanUp(){
-      mounted = false
-      clearTimeout(timer.current)
-    }
-  //eslint-disable-next-line
-  },[showMsg])
- */
-
 const egcaNumValidator = (val)=>{
   const rawInput = +val
-  if (Number.isNaN(rawInput) || rawInput === 0 || Math.sign(rawInput) !== 1 || rawInput < 1||rawInput>1500) {
+  if (Number.isNaN(rawInput) || rawInput === 0 || Math.sign(rawInput) !== 1 || rawInput < 1||rawInput>2000) {
     return false
   }
   else{
@@ -80,7 +64,7 @@ const setCalendarDate = (dateObj)=>{
   const month = dateObj.getMonth() + 1
   const day = dateObj.getDate()
   const year = dateObj.getFullYear()
-  setDateText(`${month}/${day}/${year}`)
+  setDateText(`${day}/${month}/${year}`)
   setShowCalendar(false)
 }
 
@@ -147,7 +131,7 @@ else{
         <h2>Welcome! Please provide your information below:</h2>
           <div className = "elements">
             <div>
-              <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} ></input>
+              <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} placeholder=' e.g 86' ></input>
               {isEgcaNumSet && <span className = "imgSpan"><img src = {egcaNumIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts EGCA Number validity"/></span>}
             </div>
             <div>

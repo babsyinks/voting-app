@@ -83,17 +83,17 @@ const handleSubmit = async (e)=>{
 
     if(token){
       localStorage.setItem('token',token)
-      grantAccess()
+      
       setInfo(egcaNum,name)
       if(email_phone.saved){
         if(toVote){
+          grantAccess()
           history.push('/vote')
         }
         else{
           setEmailPhone(email_phone)
           setOpenEmailPhonePage(true)
         }
-        
       }
       else{
         setOpenEmailPhonePage(true)

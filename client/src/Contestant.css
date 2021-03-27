@@ -5,31 +5,37 @@
     border-radius: 5px;
     margin-left: 2px;
     background-color: white;
-    font-family: 'Bad Script', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 .contestant .name{
     color: rgb(0, 0, 255);
     text-transform: capitalize;
     padding: 5px 0px;
+    font-family: 'Berkshire Swash', sans-serif;
 }
 
 .contestant .votes{
-    color: rgb(190, 0, 0);
+    color: rgb(216, 0, 223);
     font-style: italic;
     padding: 5px 0px;
 }
 
 .contestant .totalVotes{
-    color: rgb(189, 123, 0);
+    color: rgb(196, 0, 121);
     font-style: italic;
 }
 
 .contestant .votePercent{
-    color: rgb(192, 0, 90);
     font-style: italic;
-    padding: 5px 0px;
+    font-weight: bold;
+    padding: 5px 5px;
+    background-color: black;
+    border-radius: 100%;
+    color: white;
 }
+
 
 .readManifesto, .contestant .submitVote,.closeManifesto{
     padding: 10px;
@@ -79,6 +85,11 @@
 .manifesto{
     overflow-y: scroll;
     overflow-x: hidden;
+   
+}
+
+.aboutVotes{
+  margin-bottom: 10px;
 }
 @media screen and (min-height:251px) and (max-height:300px){
     .manifesto{

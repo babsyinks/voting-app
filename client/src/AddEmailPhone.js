@@ -123,7 +123,7 @@ const{message,positiveBtnText,showPositiveBtn,negativeBtnText,showNegativeBtn,po
     return (
             <div className="outer_add">
                 <div className = "inner_add">
-                    <h2 className = "header_add"><span>Hi </span><span className = "name_ep">{`${name.toLowerCase()}!`}</span></h2>
+                    <h2 className = "header_add"><span>Hello </span><span className = "name_ep">{`${name.toLowerCase()}`}, its great to have you here!</span></h2>
                     <div className = "pic_add">
                       {openModal?<img src= "thankyou.jpg" alt="thanks user for submitting form"/>:<img src= {currentLink} alt="guides user to enter email and phone number"/>}  
                     </div>

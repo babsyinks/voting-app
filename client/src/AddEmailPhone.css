@@ -10,7 +10,7 @@
     font-size: 1.3vw;
     outline: none;
   }
-
+font-family
   .outer_add{
     height: 100%;
     width: 100vw;
@@ -31,16 +31,14 @@
    font-size: 2vw;
    font-family: 'Old Standard TT', serif;
    font-style: italic;
-   color: white;
  }
   .name_ep{
-    color: whitesmoke;
     text-transform: capitalize;
     
   }
 
   .alreadySub{
-    font-family: 'Patrick Hand', cursive;
+    font-family: 'Patrick Hand', serif;
     color: brown;
     font-size: 2vw;
   }
@@ -51,9 +49,8 @@
   .input_ep label{
     font-weight: bold;
     padding-right: 10px;
-    font-family: 'Bad Script', cursive;
+    font-family: 'Bad Script', serif;
     font-size: 1.4vw;
-    color: white;
   }
 
   .pic_add img{
@@ -65,7 +62,7 @@
   .sub{
     background-color: cornflowerblue;
     border: none;
-    font-family: 'Bad Script', cursive;
+    font-family: 'Bad Script', serif;
     font-size: 1.4vw;
     font-weight: bold;
   }
@@ -79,7 +76,6 @@
 
     .inner_add{
       height: 100vh;
-      color: white;
     }
 
     .header_add{

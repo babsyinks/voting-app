@@ -75,6 +75,7 @@
 .closeManifesto{
     background-color:crimson;
     color: white;
+    margin-top: 5px;
 }
 
 .closeManifesto:hover{
@@ -85,7 +86,11 @@
 .manifesto{
     overflow-y: scroll;
     overflow-x: hidden;
-   
+}
+
+.manifesto_text{
+  font-weight: normal;
+  text-align: left;
 }
 
 .aboutVotes{

@@ -133,7 +133,7 @@ const Admin = ({adminAuthenticated,history})=>{
             <label htmlFor='picture'>Upload Picture:</label><input type = "file" name = "picture" key = {resetFile}  onChange = {onSetPicture}></input>
           </div>
           <div className = "buttons">
-          <button id="submit" type="button" disabled = {isDisabled} onClick = {handleSubmitVals}><i className="fas fa-plus" onClick = {goHome}></i></button>
+          <button id="submit" type="button" disabled = {isDisabled} onClick = {handleSubmitVals}><i className="fas fa-plus"></i></button>
           <button id="goHome" type="button"><i className="fas fa-home" onClick = {goHome}></i></button>
           <button id="goVote" type="button"><i className="fas fa-poll" onClick = {goVote}></i></button>
           </div>

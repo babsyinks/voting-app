@@ -94,7 +94,6 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
                     }
                     return c
         })
-        console.log(updatedContestants)
         setTheContestants(updatedContestants)
         colorizeVotePercent(theContestants)
     }

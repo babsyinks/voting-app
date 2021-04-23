@@ -72,7 +72,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
     else{
         return(
         <div className = "contestant manifesto">
-            {manifesto}
+            <div className = "manifesto_text">{manifesto}</div>
             <div><input type = "button" value = "Close Manifesto" onClick = {closeManifesto}  className = "closeManifesto"/></div>
         </div>            
         )

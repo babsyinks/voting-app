@@ -33,6 +33,7 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
     const[myEgcaNum,setMyEgcaNum] = useState(0)
     const[failedFetch,setFailedFetch] = useState(false)
     
+
     useEffect(()=>{
       let unmounted = false;
       let source = axios.CancelToken.source()
@@ -60,7 +61,9 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
           }
         
       }
-      fetch()
+     if(userAuthenticated){
+          fetch()
+     } 
       return function cleanUp(){
         unmounted = true
         source.cancel("Cancelling in cleanup");
@@ -127,7 +130,7 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
               )
             }
         }
-        else{
+        else{ 
             history.push('/')
             return null  
         } 

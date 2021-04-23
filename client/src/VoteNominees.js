@@ -50,8 +50,8 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
             setArrOfContestants(electionArr)
             } catch (error) {
               setFailedFetch(true)  
-              console.log(error.message)
-              if (axios.isCancel(error)) {
+      
+            if (axios.isCancel(error)) {
                 console.log(`request cancelled:${error.message}`);
             } else {
                 console.log("another error thrown:" + error.message);
@@ -77,7 +77,9 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
       }
 
     const handleLogin = async()=>{
+    
         try {
+          
             const data = await login()
            
             if(data === 'success'){
@@ -115,11 +117,13 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
             }
             else{
               return (
-                <div className = "voteNomineesWrapper">
-                  <Particles params = {params} className = 'particles' />
+                <div className = "voteNomineesWrapper"> 
                   {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
-                  <button style = {{padding:'10px',fontWeight:'bold'}} onClick = {handleLogin}>Add Contestants</button> 
-                  <h2 style = {{textAlign:'center',height:'100vh',color:'white'}}>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
+                  <div>
+                    <button style = {{padding:'10px',fontWeight:'bold', marginLeft:'10px'}} onClick = {handleLogin}>Add Contestants</button> 
+                    <h2 style = {{textAlign:'center',height:'100vh',color:'white'}}>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
+                  </div>
+                  
                 </div>
               )
             }

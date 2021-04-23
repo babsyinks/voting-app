@@ -33,7 +33,6 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
     const[myEgcaNum,setMyEgcaNum] = useState(0)
     const[failedFetch,setFailedFetch] = useState(false)
     
-
     useEffect(()=>{
       let unmounted = false;
       let source = axios.CancelToken.source()

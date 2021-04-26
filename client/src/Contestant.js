@@ -58,7 +58,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
     if(!readManifesto){
         return(
                 <div className = "contestant">
-                    <div><img src ={picture} alt = "contestant"/></div>
+                    <div className = "contestant_picture"><img src ={picture} alt = "contestant"/></div>
                     <div className = "aboutVotes">Name: <span className = 'name'>{name}</span></div>
                     <div className = "aboutVotes">Votes: <span className = 'votes'>{votes}</span> out of <span className = 'totalVotes'>{totalVotes}</span></div>
                     <div className = "aboutVotes">Vote Percentage: <span className = 'votePercent' style = {{color:votePercentColor[egcaNum]}}>{Math.round(votePercent())}%</span></div>
@@ -66,7 +66,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
                     {!isButtonDisabled?(
                     <input type = "button" value = "Vote" className = "submitVote" onClick = {voteForContestant} disabled = {disableVote} />
                     ):votedForThisContestant?<button className = "voterFor"><i className="far fa-check-circle fa-lg"></i></button>:<button className = "votedAgainst" ><i className="far fa-times-circle fa-lg"></i></button>}
-                    </div>
+                </div>
             )
     }
     else{

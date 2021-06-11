@@ -40,15 +40,8 @@
     max-width: 100%;
 }
 #submit{
-    width: 3.5em;
-    height: 3.5em;
-    margin: 5px;
-    border:1px solid black;
-    border-radius: 100%;
-    font-weight: bold;
     background-color: rgb(20, 245, 121);
-    box-shadow: 2px 1px 2px 2px rgb(0, 34, 27);
-    outline: none;    
+    box-shadow: 2px 1px 2px 2px rgb(0, 34, 27); 
    
 }
 
@@ -56,47 +49,49 @@
     font-size: 1em;
     background-color: rgb(14, 167, 40);
     color: white;
-    animation: actionBtn 0.6s ease-in-out;
-    cursor: pointer;
 }
 
 #goHome{
-    width: 3.5em;
-    height: 3.5em;
-    margin: 5px;
-    border:1px solid black;
-    border-radius: 100%;
-    font-weight: bold;
     background-color:rgb(162, 0, 255); 
-    box-shadow: 2px 1px 2px 2px rgb(57, 2, 68);
-    outline: none;   
+    box-shadow: 2px 1px 2px 2px rgb(57, 2, 68);  
 }
 
 #goHome:hover{
     font-size: 1em;
     background-color:rgb(70, 10, 105);
     color: white;
-    animation: actionBtn 0.6s ease-in-out;
-    cursor: pointer;
 }
 
 #goVote{
-    width: 3.5em;
-    height: 3.5em;
-    margin: 5px;
-    border:1px solid black;
-    border-radius: 100%;
-    font-weight: bold;
     background-color: rgb(0, 81, 255); 
     box-shadow: 2px 1px 2px 2px rgb(7, 1, 59);
-    outline: none;   
 }
 
 #goVote:hover{
     font-size: 1em;
     background-color: rgb(7, 7, 117);
     color: white;
-    animation: actionBtn 0.6s ease-in-out;
+}
+
+#goSetTime{
+    background-color: rgb(238, 15, 15);
+    box-shadow: 2px 1px 2px 2px rgb(83, 0, 4);
+}
+
+#goSetTime:hover{
+    font-size: 1em;
+    background-color: brown;
+    color: white;
+}
+
+.roundButton{
+    width: 3.5em;
+    height: 3.5em;
+    margin: 5px;
+    border:1px solid black;
+    border-radius: 100%;
+    font-weight: bold;
+    outline: none; 
     cursor: pointer;
 }
 
@@ -156,7 +151,7 @@
       .admin textarea{
         max-width: 70%;
     }
-    #submit{
+/*     #submit{
         width:340%;
-    }
+    } */
 }

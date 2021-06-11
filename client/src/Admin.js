@@ -56,6 +56,10 @@ const Admin = ({adminAuthenticated,history})=>{
     history.push('/vote')
   }
 
+  const goSetTime = ()=>{
+    history.push('/time')
+  }
+
   const setAlert = (cls,message)=>{
     setDisplayAlert({display:true,cls,message})
     setTimeout(()=>{
@@ -133,9 +137,10 @@ const Admin = ({adminAuthenticated,history})=>{
             <label htmlFor='picture'>Upload Picture:</label><input type = "file" name = "picture" key = {resetFile}  onChange = {onSetPicture}></input>
           </div>
           <div className = "buttons">
-          <button id="submit" type="button" disabled = {isDisabled} onClick = {handleSubmitVals}><i className="fas fa-plus"></i></button>
-          <button id="goHome" type="button"><i className="fas fa-home" onClick = {goHome}></i></button>
-          <button id="goVote" type="button"><i className="fas fa-poll" onClick = {goVote}></i></button>
+          <button className = "roundButton" id="submit" type="button" disabled = {isDisabled} onClick = {handleSubmitVals}><i className="fas fa-plus"></i></button>
+          <button className = "roundButton" id="goHome" type="button" onClick = {goHome}><i className="fas fa-home"></i></button>
+          <button className = "roundButton" id="goVote" type="button" onClick = {goVote}><i className="fas fa-poll"></i></button>
+          <button className = "roundButton" id="goSetTime" type="button" onClick = {goSetTime}><i className="fas fa-stopwatch"></i></button>
           </div>
       </div>
   )

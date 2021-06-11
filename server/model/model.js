@@ -54,9 +54,18 @@ const electivePositionsSchema = new mongoose.Schema({
     contestants:[contestantsSchema]
 })
 
+const electionTimerSchema = new mongoose.Schema({
+    startDate:Number,
+    endDate:Number
+})
+
 const electionSchema = new mongoose.Schema({
     positions:[electivePositionsSchema],
-    allContestants:[Number]
+    allContestants:[Number],
+    electionDate:{
+        type:electionTimerSchema,
+        default:null
+    }
 })
 
 const Election = mongoose.model('election',electionSchema)

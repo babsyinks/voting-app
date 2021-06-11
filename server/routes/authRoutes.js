@@ -12,6 +12,7 @@ Router.use(express.json())
 Router.post('/checkIdentity',async (req,res)=>{
     try {
         const{egcaNum,dateText} = req.body
+
         const egcaObj = await Egca.findOne({egcaNum})
 
         const validateDOB = (dobFromFrontEnd,dobFromDB)=>{

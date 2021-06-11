@@ -98,6 +98,11 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
     const goHome = ()=>{
         history.push('/')
     }
+
+    const logOut = ()=>{
+      localStorage.removeItem('token')
+      history.push('/')
+    }
         if(userAuthenticated){ 
             if(!failedFetch){
                return(
@@ -107,7 +112,7 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
                     <div className = "headerTab">
                           <i className="fas fa-home" onClick = {goHome}></i>
                           <div>Welcome <span style = {{textTransform:'capitalize'}}>{name.toLowerCase()}.</span> Please Proceed To Vote.</div>
-                          <button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button>  
+                          {egcaNum === '67'?<button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button>:<button onClick = {logOut}>Log Out</button>}   
                     </div> 
                     {arrOfContestants.map(({allVotes,contestants,position},i)=>{ 
                       return <ElectivePosition myEgcaNum = {myEgcaNum} categoryArr = {allVotes}  totalVotes = {allVotes.length}

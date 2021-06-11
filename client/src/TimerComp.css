@@ -1,0 +1,18 @@
+.App {
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .time {
+    font-size: 32px;
+  }
+
+  @media screen and (orientation:portrait) {
+
+    .App {
+      display: flex;
+      flex-direction: column;
+    }
+  }

@@ -1,0 +1,63 @@
+.admin_signin_Wrap div{
+    padding: 10px;
+}
+
+.admin_signin_Wrap h2{
+    text-align: center;
+    color: rgb(175, 2, 161);
+    font-size: 1.76vw;
+}
+
+.admin_signin_Wrap label{
+    margin-right: 10px;
+    font-family: adobe-garamond-pro, serif;
+    font-weight: bold;
+    color: rgb(155, 12, 95);
+    font-size: 1.171vw;
+}
+
+.adminLogin_btn{
+        margin-top: 10px;
+        padding: 5px 20px;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background-color: rgb(82, 255, 47);
+}
+
+.adminLogin_btn:hover{
+    background-color: rgb(27, 160, 0); 
+    color: white;
+}
+
+.errorAdmin{
+    color: red;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+input.admin_input{
+    font-size: 1.171vw;
+    width: auto;
+}
+
+@media only screen and (orientation:portrait) {
+    .admin_signin_Wrap h2{
+        font-size: 1.76vh;
+    }
+    .admin_signin_Wrap label{
+        font-size: 1.171vh;
+    }
+
+    .admin_input{
+        font-size: 1.171vh;
+        
+    }
+}
+/* 
+@media only screen and (max-width:400px) {
+input[type='text']{
+    width: auto;
+}
+} */

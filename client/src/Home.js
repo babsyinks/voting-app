@@ -4,10 +4,14 @@ import axios from 'axios'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import DisplayErrorMessage from './DisplayErrorMessage'
-import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
-import './Home.css';
-import { setUserInfo } from './actions/userInfoAction'
 import AddEmailPhone from './AddEmailPhone'
+import TimerComp from './TimerComp'
+import ComposeComp from './ComposeComp'
+import './Home.css';
+import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
+import { setUserInfo } from './actions/userInfoAction'
+import {timerIsEnabled,timerIsDisabled} from './actions/timerActions'
+import {loading,notLoading} from './actions/loadingActions'
 
 export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   const trimmedStr = value.replace(/\s/g,'') 
@@ -17,7 +21,7 @@ export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   value.length?setIsSet(true):setIsSet(false)
 }
 
-function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote}) {
+function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote,timer,enableTimer,disableTimer,load,stopLoading,isLoading}) {
   const[isDisabled,setIsDisabled] = useState(true)
   const[egcaNum,setEgcaNum] = useState('')
   const[egcaNumIsValid,setEgcaNumIsValid] = useState(false)
@@ -29,6 +33,30 @@ function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote}) {
   const[dateText,setDateText] = useState('')
   const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
   const[emailPhone,setEmailPhone] = useState(null)
+
+  useEffect(()=>{
+
+    const getTimerStatus = async ()=>{
+      load()
+      const {data:timerStatus} = await axios.get('/timer/status')
+      console.log(timerStatus)
+      if(!timerStatus){
+        disableTimer()
+      }
+      else if(timerStatus.message){
+        console.log(timerStatus.message)
+      }
+      else{
+        delete timerStatus._id
+        enableTimer({...timerStatus,timerSet:true})
+      }
+      stopLoading()
+    }
+
+    getTimerStatus()
+    
+  },[enableTimer,disableTimer,load,stopLoading])
+
   useEffect(() => {
     if(egcaNumIsValid && dateText){
         setIsDisabled(false)
@@ -77,7 +105,6 @@ const setAlert = (cls,message)=>{
 
 const handleSubmit = async (e)=>{
   const alumniInfo = {egcaNum,dateText}
-
   try {
     const {data:{token,egcaNum,name,email_phone}} = await axios.post('/auth/checkIdentity',alumniInfo)
 
@@ -117,40 +144,63 @@ const reset = ()=>{
   setShowDateText(false)
 }
 
-if(openEmailPhonePage){
-  return <AddEmailPhone history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} toVote = {toVote} emailPhoneHandler = {reset} emailPhone = {emailPhone} />
+if(isLoading){
+  return null
 }
 else{
-    return (
-    <div className = "wrapper">
-      {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
-      <div className = "box">
-        {toVote?<div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>:(
-          <div className="heading_wrapper"><h1>EGCA Alumni Data Updating App</h1><img src='egca_logo.png' alt = 'egca logo'/></div>
-        )}
-        <h2>Welcome! Please provide your information below:</h2>
-          <div className = "elements">
-            <div>
-              <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} placeholder=' e.g 86' ></input>
-              {isEgcaNumSet && <span className = "imgSpan"><img src = {egcaNumIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts EGCA Number validity"/></span>}
-            </div>
-            <div>
-              <label htmlFor='dob'>Date Of Birth:</label>
-              {showDateText && <input type = "text" name = "dateText" value = {dateText} readOnly = {true} ></input>}{!showCalendar && <button onClick = {openCalendar} className = "calendar_btn"></button>}
-            </div>  
-          </div>
-          {showCalendar && <span className = 'calendar'><Calendar onChange={setCalendarDate} value={value}/></span>}
-          <input id = "proceed" type = "button" value = "Proceed" disabled = {isDisabled} onClick = {handleSubmit}></input>
-      </div>
-  
-    </div>
-  );
+  if(openEmailPhonePage){
+    return <AddEmailPhone history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} toVote = {toVote} emailPhoneHandler = {reset} emailPhone = {emailPhone} />
 }
+else{
+  if(timer.timerSet){
+      return (
+            <ComposeComp>
+              <h2 className = "eleMsg_start">The Election Will Start In:</h2>
+                <TimerComp endTime = {timer.startDate}></TimerComp>
+              <h2 className = "eleMsg_cb">Please Come Back To Vote By Then.</h2>
+            </ComposeComp>
+        );
+  }
+  else{ 
+    return (
+             <div className = "wrapper">
+                {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
+                <div className = "box">
+                  {toVote?<div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>:(
+                    <div className="heading_wrapper"><h1>EGCA Alumni Data Updating App</h1><img src='egca_logo.png' alt = 'egca logo'/></div>
+                  )}
+                  <h2>Welcome! Please provide your information below:</h2>
+                    <div className = "elements">
+                      <div>
+                        <label htmlFor='egcaNum'>E.G.C.A Number:</label><input type = "text" name = "egcaNum" minLength = "3" maxLength = "4" value = {egcaNum} onChange = {setValidEgcaNum} placeholder=' e.g 86' ></input>
+                        {isEgcaNumSet && <span className = "imgSpan"><img src = {egcaNumIsValid?'correct.jpg':'wrong.jpg'} alt = "this depicts EGCA Number validity"/></span>}
+                      </div>
+                      <div>
+                        <label htmlFor='dob'>Date of Birth:</label>
+                        {showDateText && <input type = "text" name = "dateText" value = {dateText} readOnly = {true} ></input>}{!showCalendar && <button onClick = {openCalendar} className = "calendar_btn"></button>}
+                      </div>  
+                    </div>
+                    {showCalendar && <span className = 'calendar'><Calendar onChange={setCalendarDate} value={value}/></span>}
+                    <input id = "proceed" type = "button" value = "Proceed" disabled = {isDisabled} onClick = {handleSubmit}></input>
+                    <p className = 'help' onClick = {()=>{history.push('/help')}}>Can't Log In? Click Here For Help</p>
+                </div>
+            
+              </div>
+    )  
+
+  }
+    
+}
+}
+
+
 
 }
 
 const mapStateToProps = (state)=>({
-  userInformation:state.userInfo
+  userInformation:state.userInfo,
+  timer:state.timer,
+  isLoading:state.isLoading
 })
 
-export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo})(Home);
+export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo,enableTimer:timerIsEnabled,disableTimer:timerIsDisabled,load:loading,stopLoading:notLoading})(Home);

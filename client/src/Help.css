@@ -1,0 +1,63 @@
+.help_wrapper{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.help_header{
+    font-size: 1.76vw;
+}
+.whatsapp-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.whatsapp{
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1.171vw;
+    margin-right: 20px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    
+}
+
+.whatsapp:hover{
+    border: 1px solid blueviolet;
+} 
+
+.help_header{
+    color: rgb(114, 7, 214);
+}
+
+.whatsapp_icon{
+    font-size: 1.5vw;
+}
+
+.note{
+    font-style: italic;
+    color: crimson;
+    font-size: 1.171vw;
+}
+
+.note span{
+   font-weight: bold;
+   color: rgb(170, 22, 22); 
+}
+
+.help_msg{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.171vw;
+}
+
+@media only screen and (orientation:portrait) {
+    .help_header{
+        font-size: 1.76vh;
+    }
+    .help_msg, .whatsapp, .note{
+        font-size: 1.171vh;
+    }
+    .whatsapp_icon{
+        font-size: 1.5vh;
+    }
+}

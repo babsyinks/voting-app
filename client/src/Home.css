@@ -110,6 +110,17 @@
     height: 1.83vw;
   }
 
+  .eleMsg_start, .eleMsg_cb{
+    font-family: adobe-garamond-pro, serif;
+    color: brown;
+    text-align: center;
+  }
+
+  .help{
+    cursor: pointer;
+    color: rgb(150, 10, 10);
+    font-size: 1.171vw;
+  }
   @media only screen and (max-height:700px){
     .elements{
       padding-top: 10px;
@@ -196,6 +207,15 @@
   width: 1.83vh;
   height: 1.83vh;
 }
+
+.help{
+  font-size: 1.171vh;
+}
+
+/* .eleMsg_start, .eleMsg_cb{
+  font-size: 1.76vh;
+} */
+
   }
   @media screen and (max-height:550px) and (orientation:landscape){
     .wrapper{

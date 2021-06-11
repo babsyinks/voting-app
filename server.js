@@ -6,6 +6,7 @@ const rateLimiter = require('express-rate-limit')
 const mongoSanitize = require('express-mongo-sanitize')
 const authRoutes = require('./server/routes/authRoutes')
 const electionRoutes = require('./server/routes/electionRoutes')
+const timerRoutes = require('./server/routes/timerRoutes')
 const port = process.env.PORT || 3001
 const app = express()
 
@@ -40,6 +41,8 @@ app.use(express.static(path.join(__dirname,'client',`${assetFolder}`)))
 app.use('/auth',authRoutes)
 
 app.use('/election',electionRoutes)
+
+app.use('/timer', timerRoutes)
 
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'client',`${assetFolder}`,'index.html'))

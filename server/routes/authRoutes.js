@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken')
 const path = require('path')
 const validator = require('validator')
 const {Egca} = require('../model/model')
-const auth = require('../middleware/auth')
 const electionAuth = require('../middleware/electionAuth')
+const permittedAuth = require('../middleware/permittedAuth')
 require('dotenv').config({path:path.join('..','..','.env')});
 const Router = express.Router()
 Router.use(express.json())
@@ -54,6 +54,7 @@ Router.post('/email_phone',electionAuth,async(req,res)=>{
         const validEmail = validator.isEmail(trimmedEmail)
         const trimmedPhone = phone.replace(/\s/g,'')
         const validPhone = validator.isMobilePhone(trimmedPhone)
+        
         if(validEmail && validPhone){
             egcaAlumnus.email = trimmedEmail
             egcaAlumnus.phone = trimmedPhone
@@ -71,7 +72,7 @@ Router.post('/email_phone',electionAuth,async(req,res)=>{
 
 })
 
-Router.get('/admin/login',auth,(req,res)=>{
+Router.get('/admin/login',permittedAuth([67]),(req,res)=>{
      res.json({authenticated:true})
 })
 

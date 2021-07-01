@@ -1,5 +1,9 @@
-import React from "react";
+import React,{useEffect} from "react";
+import axios from 'axios'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import {timerIsDisabled} from './actions/timerActions'
 import "./TimerComp.css";
 
 const minuteSeconds = 60;
@@ -26,12 +30,39 @@ const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
 const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
 const getTimeDays = (time) => (time / daySeconds) | 0;
 
-export default function TimerComp({endTime}) {
+function TimerComp({endTime,disableTimer,history}) {
   const startTime = Date.now() / 1000; // use UNIX timestamp in seconds
-  console.log(endTime)
   const remainingTime = endTime/1000 - startTime;
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
+
+  useEffect(()=>{
+    let timerInterval
+    const checkTimerStatus = async ()=>{
+      const endTimeSecs = endTime/1000
+      timerInterval = setInterval(()=>{
+       const remainingTimeSecs = endTimeSecs - Date.now()/1000
+       const timerStatus = async ()=>{
+        if(remainingTimeSecs <=0){
+            const res = await axios.get('/timer/cancelStart')
+              if(res.data.message === 'timer cancelled'){
+                  disableTimer()
+                  clearInterval(timerInterval)
+              }
+              else{
+                console.log(res.data.message)
+              }  
+      } 
+       }
+       timerStatus()
+      },1000)
+  }
+  checkTimerStatus()
+
+  return ()=>{
+    clearInterval(timerInterval)
+  }
+  },[disableTimer,history,endTime])
 
   return (
     <div className="App">
@@ -87,3 +118,5 @@ export default function TimerComp({endTime}) {
     </div>
   );
 }
+
+export default withRouter(connect(null,{disableTimer:timerIsDisabled}) (TimerComp)) 

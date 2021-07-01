@@ -5,9 +5,9 @@ import ComposeComp from './ComposeComp'
 import DisplayErrorMessage from './DisplayErrorMessage'
 import './DisplayErrorMessage.css'
 import './ElectionTimeSetter.css'
-import {timerIsEnabled,timerIsDisabled} from './actions/timerActions'
+import {timerIsEnabled,timerIsDisabled,liveTimerIsEnabled,liveTimerIsDisabled,resetTimer} from './actions/timerActions'
 
-function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer,timer}) {
+function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer,enableLiveTimer,disableLiveTimer,timer,resetTimer}) {
 
     const[startDate,setStartDate] = useState('')
     const[startTime,setStartTime] = useState('')
@@ -22,21 +22,22 @@ function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer
         const getTimerStatus = async ()=>{
 
             const {data:timerStatus} = await axios.get('/timer/status')
-            console.log(timerStatus)
             if(!timerStatus){
               disableTimer()
+              disableLiveTimer()
             }
             else if(timerStatus.message){
               console.log(timerStatus.message)
             }
             else{
                 delete timerStatus._id
-              enableTimer({...timerStatus,timerSet:true})
+              enableTimer({...timerStatus,electionStartSet:true})
+              enableLiveTimer({electionEndSet:true})
             }
           }
       
           getTimerStatus()
-    },[enableTimer,disableTimer])
+    },[enableTimer,disableTimer,enableLiveTimer,disableLiveTimer])
 
     useEffect(() => { 
         let timeout
@@ -130,7 +131,8 @@ function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer
             })
             console.log(message)
             if(message === 'timer set'){
-                enableTimer({...timerObj,timerSet:true})
+                enableTimer({...timerObj,electionStartSet:true})
+                enableLiveTimer({electionEndSet:true})
                 handleTimerMessage('Timer Successfully Set!','success') 
             }
             else{
@@ -153,7 +155,9 @@ function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer
               }})
               console.log(message)
             if(message === 'timer cancelled'){
-                disableTimer()
+/*                 disableTimer()
+                disableLiveTimer() */
+                resetTimer()
                 handleTimerMessage('Timer Successfully Cancelled!','success')
             }
             else{
@@ -169,7 +173,7 @@ function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer
 
     if(adminAuthenticated){
         return (
-            <ComposeComp>
+            <ComposeComp linearGrad = 'linear-gradient(to right, rgb(135 243 135), rgb(227 247 119), rgb(101 223 251))'>
                     <Fragment>
                         <div className = "elemWrap">
                         {alert.isSet && <DisplayErrorMessage status = {alert.status}>{alert.msg}</DisplayErrorMessage>}
@@ -179,7 +183,7 @@ function ElectionTimeSetter({adminAuthenticated,history,enableTimer,disableTimer
                             <div><label>Election End Time:</label> <input type = 'time' onChange = {handleSetEndTime} value = {endTime}></input></div>
                         </div>
                         {enableDone && <button value = 'Done' className = "doneBtn timerBtns" onClick = {setTimer}>Done</button>}
-                        {timer.timerSet && <button value = 'Cancel Timer' className = "cancelTimerBtn timerBtns" onClick = {cancelTimer}>Cancel Timer</button>}
+                        {timer.electionStartSet && timer.electionEndSet && <button value = 'Cancel Timer' className = "cancelTimerBtn timerBtns" onClick = {cancelTimer}>Cancel Timer</button>}
                     </Fragment>
             </ComposeComp>
 
@@ -198,4 +202,4 @@ const mapStateToProps = (state)=>({
     timer:state.timer
   })
 
-export default connect(mapStateToProps,{enableTimer:timerIsEnabled,disableTimer:timerIsDisabled})(ElectionTimeSetter) 
+export default connect(mapStateToProps,{enableTimer:timerIsEnabled,disableTimer:timerIsDisabled,enableLiveTimer:liveTimerIsEnabled,disableLiveTimer:liveTimerIsDisabled,resetTimer})(ElectionTimeSetter) 

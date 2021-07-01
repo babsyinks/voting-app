@@ -4,6 +4,7 @@ import './AdminSignin.css'
 import {adminLogin} from './actions/adminActions'
 import {connect} from 'react-redux'
 import axios from 'axios'
+
 function AdminSignIn({login,history}) {
 
     const[dob,setDob] = useState('')
@@ -23,8 +24,6 @@ function AdminSignIn({login,history}) {
     }
 
     const handleSetDob = (e)=>{
-        //14/3/1985
-        //1985-3-14
         const dateArr = e.target.value.split('-')
     
         const fmDate = dateArr.reduceRight((acc,v,i)=>{

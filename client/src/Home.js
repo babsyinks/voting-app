@@ -7,10 +7,12 @@ import DisplayErrorMessage from './DisplayErrorMessage'
 import AddEmailPhone from './AddEmailPhone'
 import TimerComp from './TimerComp'
 import ComposeComp from './ComposeComp'
+import LiveTimer  from './LiveTimer'
+import Result from './Result'
 import './Home.css';
 import {userAuthenticated,userNotAuthenticated} from './actions/userActions'
 import { setUserInfo } from './actions/userInfoAction'
-import {timerIsEnabled,timerIsDisabled} from './actions/timerActions'
+import {timerIsEnabled,timerIsDisabled,liveTimerIsEnabled,liveTimerIsDisabled} from './actions/timerActions'
 import {loading,notLoading} from './actions/loadingActions'
 
 export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
@@ -21,7 +23,7 @@ export const validateVal = (value,validator,setVal,setValidity,setIsSet)=>{
   value.length?setIsSet(true):setIsSet(false)
 }
 
-function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote,timer,enableTimer,disableTimer,load,stopLoading,isLoading}) {
+function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote,timer,enableTimer,disableTimer,enableLiveTimer,disableLiveTimer,load,stopLoading,isLoading}) {
   const[isDisabled,setIsDisabled] = useState(true)
   const[egcaNum,setEgcaNum] = useState('')
   const[egcaNumIsValid,setEgcaNumIsValid] = useState(false)
@@ -39,23 +41,35 @@ function Home({history,grantAccess,denyAccess,setInfo,userInformation,toVote,tim
     const getTimerStatus = async ()=>{
       load()
       const {data:timerStatus} = await axios.get('/timer/status')
-      console.log(timerStatus)
       if(!timerStatus){
         disableTimer()
+        disableLiveTimer()
+      }
+      else if(!timerStatus.startDate && !timerStatus.endDate){
+        //handle election result
+        delete timerStatus._id
+        disableTimer(timerStatus)
+        disableLiveTimer()
+      }
+      else if(!timerStatus.startDate){
+        delete timerStatus._id
+        disableTimer()
+        enableLiveTimer({...timerStatus,electionEndSet:true})
       }
       else if(timerStatus.message){
         console.log(timerStatus.message)
       }
       else{
         delete timerStatus._id
-        enableTimer({...timerStatus,timerSet:true})
+        enableTimer({...timerStatus,electionStartSet:true})
+        enableLiveTimer({electionEndSet:true})
       }
-      stopLoading()
+      stopLoading() 
     }
 
     getTimerStatus()
     
-  },[enableTimer,disableTimer,load,stopLoading])
+  },[enableTimer,disableTimer,enableLiveTimer,disableLiveTimer,load,stopLoading])
 
   useEffect(() => {
     if(egcaNumIsValid && dateText){
@@ -152,7 +166,7 @@ else{
     return <AddEmailPhone history={history} name = {userInformation.name} egcaNum = {userInformation.egcaNum} toVote = {toVote} emailPhoneHandler = {reset} emailPhone = {emailPhone} />
 }
 else{
-  if(timer.timerSet){
+  if(timer.electionStartSet){
       return (
             <ComposeComp>
               <h2 className = "eleMsg_start">The Election Will Start In:</h2>
@@ -161,10 +175,14 @@ else{
             </ComposeComp>
         );
   }
+  else if(!timer.electionStartSet && !timer.electionEndSet && timer.startDate === null && timer.endDate === null){
+    return <Result />
+  }
   else{ 
     return (
              <div className = "wrapper">
                 {displayAlert.display&& <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
+                {timer.electionEndSet && <LiveTimer electionEndTime = {timer.endDate} />}
                 <div className = "box">
                   {toVote?<div className="heading_wrapper"><h1>EGCA Alumni Voting App</h1><img src='vote.png' alt = 'vote icon'/></div>:(
                     <div className="heading_wrapper"><h1>EGCA Alumni Data Updating App</h1><img src='egca_logo.png' alt = 'egca logo'/></div>
@@ -187,14 +205,9 @@ else{
             
               </div>
     )  
-
-  }
-    
+  }  
 }
 }
-
-
-
 }
 
 const mapStateToProps = (state)=>({
@@ -203,4 +216,4 @@ const mapStateToProps = (state)=>({
   isLoading:state.isLoading
 })
 
-export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo,enableTimer:timerIsEnabled,disableTimer:timerIsDisabled,load:loading,stopLoading:notLoading})(Home);
+export default  connect(mapStateToProps,{grantAccess:userAuthenticated,denyAccess:userNotAuthenticated,setInfo:setUserInfo,enableTimer:timerIsEnabled,disableTimer:timerIsDisabled,enableLiveTimer:liveTimerIsEnabled,disableLiveTimer:liveTimerIsDisabled,load:loading,stopLoading:notLoading})(Home);

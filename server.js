@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const authRoutes = require('./server/routes/authRoutes')
 const electionRoutes = require('./server/routes/electionRoutes')
 const timerRoutes = require('./server/routes/timerRoutes')
+const helpDeskRoutes = require('./server/routes/helpdeskRoutes')
 const port = process.env.PORT || 3001
 const app = express()
 
@@ -43,6 +44,8 @@ app.use('/auth',authRoutes)
 app.use('/election',electionRoutes)
 
 app.use('/timer', timerRoutes)
+
+app.use('/help',helpDeskRoutes)
 
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'client',`${assetFolder}`,'index.html'))

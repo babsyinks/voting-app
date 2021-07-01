@@ -4,7 +4,7 @@ const{Egca} = require('../model/model')
 require('dotenv').config({path:path.join('..','..','.env')});
 require('dotenv').config({ debug: process.env.DEBUG })
 
-const auth = async (req,res,next)=>{
+const permittedAuth = (permittedUsers)=> async (req,res,next)=>{
 
     try {
 
@@ -18,7 +18,6 @@ const auth = async (req,res,next)=>{
 
     const user = await Egca.findById(verifyObj.user.id) 
     
-    const permittedUsers = [67]
     if(permittedUsers.includes(user.egcaNum)){
         next()
     }
@@ -31,4 +30,4 @@ const auth = async (req,res,next)=>{
     }
 }
 
-module.exports = auth
+module.exports = permittedAuth

@@ -4,7 +4,7 @@ const sharp = require('sharp')
 const multer = require('multer')
 const fs = require('fs')
 const imgbbUploader = require("imgbb-uploader");
-const auth = require('../middleware/auth')
+const permittedAuth = require('../middleware/permittedAuth')
 const electionAuth = require('../middleware/electionAuth')
 const {Election} = require('../model/model')
 require('dotenv').config({path:path.join('..','..','.env')});
@@ -25,7 +25,7 @@ const upload = multer({
       }
     })  
 
-Router.post('/contestants',auth,upload.single('picture'),async(req,res)=>{
+Router.post('/contestants',permittedAuth([67]),upload.single('picture'),async(req,res)=>{
     let filePath
     const fileName = req.file.originalname
     try {
@@ -129,6 +129,12 @@ Router.patch('/vote',electionAuth,async(req,res)=>{
         res.status(400).send({message:error.message})
     }
 
+})
+
+Router.get('/result',async (req,res)=>{
+    let allElections = await Election.find({})
+    const allELeObj = allElections[0]
+    res.json(allELeObj.positions)
 })
 
 module.exports = Router

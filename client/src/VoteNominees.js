@@ -6,6 +6,8 @@ import {adminLogin} from './actions/adminActions'
 import {loading,notLoading} from './actions/loadingActions'
 import DisplayErrorMessage from './DisplayErrorMessage'
 import ElectivePosition from './ElectivePosition'
+import LiveTimer  from './LiveTimer'
+import Result from './Result'
 import './VoteNominees.css'
 
 const params = {"particles":
@@ -27,7 +29,7 @@ const params = {"particles":
                                       "remove":{"particles_nb":2}}},"retina_detect":true}
 
 
-const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},load,stopLoading,isLoading})=>{
+const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},load,stopLoading,isLoading,timer})=>{
     const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
     const[arrOfContestants,setArrOfContestants] = useState([])
     const[myEgcaNum,setMyEgcaNum] = useState(0)
@@ -104,36 +106,43 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
       history.push('/')
     }
         if(userAuthenticated){ 
+          if(!timer.electionStartSet && !timer.electionEndSet && timer.startDate === null && timer.endDate === null){
+            return <Result />
+          }
+          else{
             if(!failedFetch){
-               return(
-              <div className = "voteNomineesWrapper">
-                 <Particles params = {params} className = 'particles' />
-                  {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
-                    <div className = "headerTab">
-                          <i className="fas fa-home" onClick = {goHome}></i>
-                          <div>Welcome <span style = {{textTransform:'capitalize'}}>{name.toLowerCase()}.</span> Please Proceed To Vote.</div>
-                          {egcaNum === '67'?<button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button>:<button onClick = {logOut}>Log Out</button>}   
-                    </div> 
-                    {arrOfContestants.map(({allVotes,contestants,position},i)=>{ 
-                      return <ElectivePosition myEgcaNum = {myEgcaNum} categoryArr = {allVotes}  totalVotes = {allVotes.length}
-                                               contestants = {contestants} position = {position} key = {i} 
-                                               /> 
-                    })} 
-              </div>              
-            )
-            }
-            else{
-              return (
-                <div className = "voteNomineesWrapper"> 
-                  {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
-                  <div>
-                    <button style = {{padding:'10px',fontWeight:'bold', marginLeft:'10px'}} onClick = {handleLogin}>Add Contestants</button> 
-                    <h2 style = {{textAlign:'center',height:'100vh',color:'white'}}>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
-                  </div>
-                  
-                </div>
-              )
-            }
+              return(
+             <div className = "voteNomineesWrapper">
+                <Particles params = {params} className = 'particles' />
+                 {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
+                   <div className = "headerTab">
+                         <i className="fas fa-home" onClick = {goHome}></i>
+                         <div>Welcome <span style = {{textTransform:'capitalize'}}>{name.toLowerCase()}.</span> Please Proceed To Vote.</div>
+                         {egcaNum === '67'?<button onClick = {handleLogin} className = {isLoading?'sp':''}>{isLoading?<i className="fas fa-circle-notch fa-spin fa-xs"></i>:'Add Contestants'}</button>:<button onClick = {logOut}>Log Out</button>}   
+                   </div> 
+                   {timer.electionEndSet && <div className = 'voteTm'><LiveTimer electionEndTime = {timer.endDate} /></div>}
+                   {arrOfContestants.map(({allVotes,contestants,position},i)=>{ 
+                     return <ElectivePosition myEgcaNum = {myEgcaNum} categoryArr = {allVotes}  totalVotes = {allVotes.length}
+                                              contestants = {contestants} position = {position} key = {i} 
+                                              /> 
+                   })} 
+             </div>              
+           )
+           }
+           else{
+             return (
+               <div className = "voteNomineesWrapper"> 
+                 {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
+                 <div>
+                   <button style = {{padding:'10px',fontWeight:'bold', marginLeft:'10px'}} onClick = {handleLogin}>Add Contestants</button> 
+                   <h2 style = {{textAlign:'center',height:'100vh',color:'white'}}>There Is Currently No Election Or Election Data Could Not Be Fetched</h2>
+                 </div>
+                 
+               </div>
+             )
+           }
+          }
+
         }
         else{ 
             history.push('/')
@@ -145,6 +154,7 @@ const mapStateToProps = (state)=>({
     userAuthenticated:state.user.userIsAuthenticated,
     adminAuthenticated:state.admin.adminIsAuthenticated,
     userInfo:state.userInfo,
+    timer:state.timer,
     isLoading:state.isLoading
 })
 

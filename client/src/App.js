@@ -6,6 +6,7 @@ import ElectionTimeSetter from './ElectionTimeSetter'
 import Admin from './Admin'
 import AdminSignIn from './AdminSignIn'
 import Help from './Help'
+import HelpDesk  from './HelpDesk'
 import NotFound from './NotFound'
 import './App.css'
 
@@ -21,6 +22,7 @@ return(
                 <Route exact path = '/time' component = {ElectionTimeSetter}/>
                 <Route exact path = '/admin-signin' component = {AdminSignIn}/>
                 <Route exact path = '/help' component = {Help}/>
+                <Route exact path = '/helpdesk' component = {HelpDesk}/>
                 <Route component = {NotFound} />
             </Switch> 
         </BrowserRouter>

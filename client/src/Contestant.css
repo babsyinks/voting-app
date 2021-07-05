@@ -1,0 +1,322 @@
+.contestant{
+    z-index: 30;
+    padding: 10px;
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.contestant_picture{
+  overflow: hidden;
+   /* transition: transform 6s cubic-bezier(0.25,0.45,0.45.0.95); */
+  
+}
+/* .contestant img{
+ 
+} */
+
+.contestant img{
+  transform: scale(1);
+  transition: all 2s ease-in-out;
+  width: 97%;
+  
+}
+
+.contestant img:hover{
+  transform: scale(1.1);
+  transition: all 2s ease-in-out;
+}
+
+.contestant .name{
+    color: rgb(0, 0, 255);
+    text-transform: capitalize;
+    padding: 5px 0px;
+    font-family: 'Berkshire Swash', sans-serif;
+}
+
+.contestant .votes{
+    color: rgb(216, 0, 223);
+    font-style: italic;
+    padding: 5px 0px;
+}
+
+.contestant .totalVotes{
+    color: rgb(196, 0, 121);
+    font-style: italic;
+}
+
+.contestant .votePercent{
+    font-style: italic;
+    font-weight: bold;
+    padding: 5px 5px;
+    background-color: black;
+    border-radius: 100%;
+    color: white;
+}
+
+
+.readManifesto, .contestant .submitVote,.closeManifesto{
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    width: 70%;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.readManifesto:hover, .contestant .submitVote:hover,.closeManifesto:hover{
+    border:1px solid rgb(161, 161, 161);
+}
+
+.readManifesto{
+    background-color:blueviolet;
+    color: white;
+}
+
+.readManifesto:hover{
+    background-color:white;
+    color:blueviolet;
+}
+
+.contestant .submitVote{
+    background-color:#15ff00;
+    color: white;
+}
+
+.contestant .submitVote:hover{
+    background-color:white;
+    color:#15ff00;
+}
+
+.closeManifesto{
+    background-color:crimson;
+    color: white;
+    margin-top: 5px;
+}
+
+.closeManifesto:hover{
+    background-color:white;
+    color: crimson;
+}
+
+.manifesto{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.manifesto_text{
+  font-weight: normal;
+  text-align: left;
+}
+
+.aboutVotes{
+  margin-bottom: 10px;
+}
+@media screen and (min-height:251px) and (max-height:300px){
+    .manifesto{
+      max-height: 152vh;   
+    }
+}
+
+@media screen and (min-height:301px) and (max-height:350px){
+    .manifesto{
+      max-height: 135vh;   
+    }
+}
+
+@media screen and (min-height:351px) and (max-height:400px){
+    .manifesto{
+      max-height: 119.5vh;   
+    }
+}
+
+@media screen and (min-height:401px) and (max-height:450px){
+    .manifesto{
+      max-height: 104vh;   
+    }
+}
+
+@media screen and (min-height:451px) and (max-height:499px){
+    .manifesto{
+      max-height: 90vh;   
+    }
+}
+
+@media screen and (min-height:500px) and (max-height:560px){
+    .manifesto{
+      max-height: 80vh;   
+    }
+}
+
+
+@media screen and (min-height:561px) and (max-height:600px){
+    .manifesto{
+      max-height: 74.5vh;   
+    }
+}
+
+
+@media screen and (min-height:601px) and (max-height:640px){
+    .manifesto{
+      max-height: 71vh;   
+    }
+}
+
+@media screen and (min-height:641px) and (max-height:670px){
+    .manifesto{
+      max-height: 67.5vh;   
+    }
+}
+
+@media screen and (min-height:671px) and (max-height:700px){
+    .manifesto{
+      max-height: 64vh;   
+    }
+}
+
+@media screen and (min-height:701px) and (max-height:740px){
+    .manifesto{
+      max-height: 60.5vh;   
+    }
+   
+}
+
+@media screen and (min-height:741px) and (max-height:780px){
+    .manifesto{
+      max-height: 57.5vh;   
+    }
+   
+}
+
+@media screen and (min-height:781px) and (max-height:820px){
+    .manifesto{
+      max-height: 55.5vh;   
+    }
+   
+}
+
+@media screen and (min-height:821px) and (max-height:850px){
+    .manifesto{
+      max-height: 52.5vh;   
+    }
+   
+}
+
+@media screen and (min-height:851px) and (max-height:900px){
+    .manifesto{
+      max-height: 49vh;   
+    }
+   
+}
+
+@media screen and (min-height:901px) and (max-height:950px){
+    .manifesto{
+      max-height: 46vh;   
+    } 
+}
+
+@media screen and (min-height:951px) and (max-height:1000px){
+    .manifesto{
+      max-height: 44vh;   
+    } 
+}
+
+@media screen and (min-height:1001px) and (max-height:1050px){
+    .manifesto{
+      max-height: 43vh;   
+    } 
+}
+
+
+@media screen and (min-height:1051px) and (max-height:1100px){
+    .manifesto{
+      max-height: 42vh;   
+    } 
+}
+
+@media screen and (min-height:1101px) and (max-height:1150px){
+    .manifesto{
+      max-height: 40.5vh;   
+    } 
+}
+
+@media screen and (min-height:1151px) and (max-height:1200px){
+    .manifesto{
+      max-height: 38.5vh;   
+    } 
+}
+
+@media screen and (min-height:1201px) and (max-height:1250px){
+    .manifesto{
+      max-height: 36.5vh;   
+    } 
+}
+
+@media screen and (min-height:1251px) and (max-height:1300px){
+    .manifesto{
+      max-height: 34vh;   
+    } 
+}
+
+@media screen and (min-height:1301px) and (max-height:1350px){
+    .manifesto{
+      max-height: 32.5vh;   
+    } 
+}
+
+@media screen and (min-height:1351px) and (max-height:1450px){
+    .manifesto{
+      max-height: 32.5vh;   
+    } 
+}
+
+
+.voterFor{
+  border:1px solid rgb(161, 161, 161);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  width: 70%;
+  margin-bottom: 5px;
+  background-color: black;
+  cursor: not-allowed;
+}
+
+.votedAgainst{
+  border:1px solid rgb(161, 161, 161);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  width: 70%;
+  margin-bottom: 5px;
+  background-color: black;
+  cursor: not-allowed;
+}
+
+.voterFor i{
+  color: rgb(0, 255, 0);
+}
+
+.votedAgainst i{
+  color: red;
+}
+
+@media only screen and (max-width:300px){
+  .contestant img{
+    display: inline-block;
+    width:85vw;
+  }
+  .contestant{
+    width:90vw;
+  }
+}
+

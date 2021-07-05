@@ -1,0 +1,22 @@
+.electionCountDown{
+    font-weight: bold;
+    color: rgb(0, 174, 255);
+    font-size: 1.46vw;
+    padding: 10px 0px;
+}
+
+.electionCountDown > span{
+   color:rgb(255, 0, 0); 
+}
+
+@media only screen and (orientation:portrait){
+    .electionCountDown{
+        font-size: 1.46vh;
+    }
+}
+
+@media only screen and (orientation:portrait) and (max-width:300px){
+    .electionCountDown{
+        font-size: 1.30vh;
+    }
+}

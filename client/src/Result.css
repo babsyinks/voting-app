@@ -1,0 +1,38 @@
+.resHeader{
+    font-size: 1.875vw;
+    text-align: center;
+}
+
+.resWrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.result{
+    background-color: rgb(2, 8, 92);
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 1.25vw;
+    cursor: pointer;
+}
+
+.allResultsWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media only screen and (orientation:portrait){
+    .result{
+        font-size: 1.25vh;
+    }
+    .resHeader{
+        font-size: 1.875vh;
+    }
+}

@@ -1,0 +1,112 @@
+ input[type="text"],input[type="email"]{
+    border: 0px;
+    border-bottom: 1px solid grey;
+    border-color: black;
+    outline: none;
+    display: inline-block;
+    width: 22vw;
+    background:none;
+    font-style: italic;
+    font-size: 1.3vw;
+    outline: none;
+  }
+font-family
+  .outer_add{
+    height: 100%;
+    width: 100vw;
+  }
+
+  .inner_add{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url('images/grad.jpg');
+    background-size: cover;
+    background-repeat:repeat;
+  }
+
+ .header_add{
+   font-size: 2vw;
+   font-family: 'Old Standard TT', serif;
+   font-style: italic;
+ }
+  .name_ep{
+    text-transform: capitalize;
+    
+  }
+
+  .alreadySub{
+    font-family: 'Patrick Hand', serif;
+    color: brown;
+    font-size: 2vw;
+  }
+  .input_ep{
+   margin-bottom: 20px; 
+  }
+
+  .input_ep label{
+    font-weight: bold;
+    padding-right: 10px;
+    font-family: 'Bad Script', serif;
+    font-size: 1.4vw;
+  }
+
+  .pic_add img{
+    display: inline-block;
+    width: 43.92vw;
+    height: 21.60vw;
+  }
+
+  .sub{
+    background-color: cornflowerblue;
+    border: none;
+    font-family: 'Bad Script', serif;
+    font-size: 1.4vw;
+    font-weight: bold;
+  }
+
+  @media only screen and (orientation:portrait){
+ 
+    input[type="text"],input[type="email"]{
+      width: 22vh;
+      font-size: 1.3vh;
+    }
+
+    .inner_add{
+      height: 100vh;
+    }
+
+    .header_add{
+      font-size: 2vh;
+    }
+
+    .alreadySub{
+      font-size: 2vh;
+    }
+
+    .input_ep label{
+      font-size: 1.4vh;
+    }
+
+    .pic_add img{
+      width: 43.92vh;
+      height: 21.60vh;
+    }
+
+    #proceed{
+      font-size: 1.4vh;
+    }
+  }
+
+  @media only screen and (max-height:400px) and (orientation:landscape){
+    
+    .inner_add{
+      height: auto;
+    }
+
+    .sub{
+      margin-bottom: 20px;
+    }
+  }

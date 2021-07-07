@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import ComposeComp from './ComposeComp'
 import './Result.css'
 
 function Result() {

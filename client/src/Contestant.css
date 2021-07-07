@@ -116,6 +116,13 @@
 
 .aboutVotes{
   margin-bottom: 10px;
+  font-size: 1.25vw;
+}
+
+@media only screen and (orientation:portrait){
+  .aboutVotes{
+      font-size: 1.25vh;
+  }
 }
 @media screen and (min-height:251px) and (max-height:300px){
     .manifesto{
@@ -205,6 +212,17 @@
       max-height: 52.5vh;   
     }
    
+}
+
+@media screen and (max-width:870px) and (orientation:landscape){
+  .aboutVotes{
+    font-size: 1.95vw;
+}
+}
+@media screen and (max-height:870px) and (orientation:portrait){
+  .aboutVotes{
+    font-size: 1.95vh;
+}
 }
 
 @media screen and (min-height:851px) and (max-height:900px){

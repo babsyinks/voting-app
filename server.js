@@ -4,6 +4,7 @@ const helmet = require('helmet')
 const xss = require('xss-clean')
 const rateLimiter = require('express-rate-limit')
 const mongoSanitize = require('express-mongo-sanitize')
+const cors = require('cors')
 const authRoutes = require('./server/routes/authRoutes')
 const electionRoutes = require('./server/routes/electionRoutes')
 const timerRoutes = require('./server/routes/timerRoutes')
@@ -11,6 +12,7 @@ const helpDeskRoutes = require('./server/routes/helpdeskRoutes')
 const port = process.env.PORT || 3001
 const app = express()
 
+app.use(cors())
 app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],

@@ -107,6 +107,11 @@
 .manifesto{
     overflow-y: scroll;
     overflow-x: hidden;
+   
+}
+
+.aboutVotes{
+  margin-bottom: 10px;
 }
 
 .manifesto_text{

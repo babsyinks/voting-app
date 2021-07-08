@@ -29,9 +29,9 @@ function Help() {
     }
 
     const styleObj = {color:btnColor.color === 'white'?'blueviolet':'white',backgroundColor:btnColor.backgroundColor === 'blueviolet'?'white':'blueviolet'}
-    const styleObjWhatsapp = {color:whatsAppIconColor.color === 'white'?'green':'white',backgroundColor:whatsAppIconColor.backgroundColor === 'green'?'white':'green'}
-    const styleObj1 = {color:btnColor1.color === 'white'?'blueviolet':'white',backgroundColor:btnColor1.backgroundColor === 'blueviolet'?'white':'blueviolet'}
-    const styleObjWhatsapp1 = {color:whatsAppIconColor1.color === 'white'?'green':'white',backgroundColor:whatsAppIconColor1.backgroundColor === 'green'?'white':'green'}
+    const styleObjWhatsapp = {color:whatsAppIconColor.color === 'white'?'green':'white',backgroundColor:whatsAppIconColor.backgroundColor === 'green'?'white':'green',borderRadius:'10px'}
+    const styleObj1 = {color:btnColor1.color === 'white'?'blueviolet':'white',backgroundColor:btnColor1.backgroundColor === 'blueviolet'?'white':'blueviolet'} 
+    const styleObjWhatsapp1 = {color:whatsAppIconColor1.color === 'white'?'green':'white',backgroundColor:whatsAppIconColor1.backgroundColor === 'green'?'white':'green',borderRadius:'10px'}
     
     return (
         <ComposeComp>
@@ -45,10 +45,10 @@ function Help() {
                         style = {styleObj} 
                         className = 'whatsapp'>Chat With Tola On <i className="fab fa-whatsapp whatsapp_icon" style = {styleObjWhatsapp}></i></button>
                     </a>
-                    <a href = 'https://api.whatsapp.com/send?phone=2348067740359' target = 'blank'>
+                    <a href = 'https://api.whatsapp.com/send?phone=2347062298897' target = 'blank'>
                         <button onMouseOver = {setColors1} onMouseOut = {unSetColors1}
                         style = {styleObj1}
-                        className = 'whatsapp'>Chat With Femi On <i className="fab fa-whatsapp whatsapp_icon" style = {styleObjWhatsapp1}></i></button>
+                        className = 'whatsapp'>Chat With Tope On <i className="fab fa-whatsapp whatsapp_icon" style = {styleObjWhatsapp1}></i></button>
                     </a>
                     
                 </div>

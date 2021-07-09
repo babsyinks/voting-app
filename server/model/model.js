@@ -20,7 +20,6 @@ const egcaSchema = new mongoose.Schema({
    },
    gender:{
        type:String,
-       required:true
    },
    egcaNum:{
     type:Number,

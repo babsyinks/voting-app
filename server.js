@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const helmet = require('helmet')
 const xss = require('xss-clean')
-const rateLimiter = require('express-rate-limit')
+//const rateLimiter = require('express-rate-limit')
 const mongoSanitize = require('express-mongo-sanitize')
 const cors = require('cors')
 const authRoutes = require('./server/routes/authRoutes')
@@ -14,7 +14,7 @@ const app = express()
 
 app.use(cors())
 app.use(helmet.contentSecurityPolicy({
-    directives: {
+    directives: { 
       defaultSrc: ["'self'"],
       connectSrc: ["'self'", 'https://ka-f.fontawesome.com','https://*.fontawesome.com'],
       scriptSrc: ["'self'", 'https://kit.fontawesome.com','https://ka-f.fontawesome.com','https://*.fontawesome.com'],
@@ -32,7 +32,7 @@ app.use(helmet.contentSecurityPolicy({
     },
   })) 
 app.use(xss())
-app.use(rateLimiter({max:2000,windowMs:24*60*60*1000,message:'Maximum Allowed Requests From This Device Has Been Exceeded'}))
+//app.use(rateLimiter({max:2000,windowMs:24*60*60*1000,message:'Maximum Allowed Requests From This Device Has Been Exceeded'}))
 app.use(mongoSanitize())
 
 require('./server/db/connectToDB')

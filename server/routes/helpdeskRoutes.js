@@ -10,7 +10,7 @@ require('dotenv').config({path:path.join('..','..','.env')});
 const Router = express.Router()
 Router.use(express.json())
 
-Router.post('/helpdesk',permittedAuth([12,178]),async (req,res)=>{
+Router.post('/helpdesk',permittedAuth([178,182]),async (req,res)=>{
     const{egcaNum,dateText} = req.body
     const objToUpdate = await Egca.findOne({egcaNum})
     objToUpdate.dob = dateText
@@ -18,7 +18,7 @@ Router.post('/helpdesk',permittedAuth([12,178]),async (req,res)=>{
     res.json({authenticated:true})
 })
 
-Router.post('/namesearch',permittedAuth([12,178]),async (req,res)=>{
+Router.post('/namesearch',permittedAuth([178,182]),async (req,res)=>{
     const nameValidator = (str)=>{
         return  /^[a-z]+(-)?([a-z]+)?$/gi.test(str)
       }

@@ -64,7 +64,7 @@ function HelpDesk({userAuthenticated,grantAccess,denyAccess}) {
 
             if(token){
             localStorage.setItem('token',token)
-            if(egcaNum === '178' || egcaNum === '12'){
+            if(egcaNum === '178' || egcaNum === '182'){
                 setName(name.toLowerCase())
                 setEgcaNum('')
                 setDob('')

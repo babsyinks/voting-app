@@ -353,7 +353,7 @@ function HelpDesk({ userAuthenticated, grantAccess, denyAccess }) {
             return (
                 <ComposeComp 
                 linearGrad={linearGrad}  
-                height="95%"
+                height="80%"
                 >
                     <div className = "helpdesk_signin_container">
                         <div className="helpdesk_signin_Wrap">

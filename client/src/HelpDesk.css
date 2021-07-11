@@ -1,3 +1,13 @@
+.helpdesk_signin_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
 .helpdesk_signin_Wrap div{
     padding: 5px;
 }
@@ -117,6 +127,10 @@ input.helpdesk_input{
     width: auto;
 }
 
+.sm_scr{
+    margin-bottom: 50px;
+}
+
 .search_by_name{
     background-color: rgb(47, 196, 255);  
     border-radius: 10px;
@@ -191,7 +205,7 @@ input.helpdesk_input{
         font-size: 1.171vh;
     }
 
-    .helpdesk_input{
+    input.helpdesk_input{
         font-size: 1.171vh;
         
     }
@@ -237,16 +251,7 @@ input.helpdesk_input{
 
 @media screen and (max-height:360px){
     .helpdesk_signin_container{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
         overflow-y: scroll;
-        padding-top: 90px;
-    }
-
-    .sm_scr{
-        margin-bottom: 10px;
+        padding-top: 150px;
     }
 }

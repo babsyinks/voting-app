@@ -1,6 +1,5 @@
-
 .helpdesk_signin_Wrap div{
-    padding: 10px;
+    padding: 5px;
 }
 
 .helpdesk_signin_Wrap + button{
@@ -58,6 +57,37 @@
 .helpdesk_btn:hover{
     background-color: rgb(4, 4, 82); 
     color: white;
+}
+
+.help_desk_note{
+    font-size: 1vw;
+    color: rgb(221, 13, 13);
+    padding: 0px 5px;
+    font-style: italic;
+}
+
+label.gender_lb{
+    margin-right:5px;
+}
+span.gender_wrap{
+    border: 1px solid grey;
+    padding: 0px 5px;
+    margin-right: 5px;
+}
+
+select.gender_group{
+    margin-right: 5px;
+    font-size: 1.1vw;
+}
+input[type = "radio"]#no, input[type = "radio"]#yes{
+    width: 0.99vw;
+    height: 0.99vw;
+}
+
+.btn_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .errorHelpDesk{
@@ -178,5 +208,45 @@ input.helpdesk_input{
 
     .helpdesk_signin_Wrap + button{
         font-size: 1.02vh;
+    }
+
+    .helpdesk_signin_Wrap div{
+        padding: 10px;
+    }
+
+    .help_desk_note{
+        font-size: 1vh;
+        padding: 0px 10px;
+    }
+
+    .gender_cont{
+        display: block;
+        margin-top: 10px;
+    }
+
+    input[type = "radio"]#no, input[type = "radio"]#yes{
+        width: 0.99vh;
+        height: 0.99vh;
+    }
+
+    select.gender_group{
+        font-size: 1.1vh;
+        
+    }
+}
+
+@media screen and (max-height:360px){
+    .helpdesk_signin_container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow-y: scroll;
+        padding-top: 90px;
+    }
+
+    .sm_scr{
+        margin-bottom: 10px;
     }
 }

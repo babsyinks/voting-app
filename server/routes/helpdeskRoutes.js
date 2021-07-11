@@ -11,11 +11,25 @@ const Router = express.Router()
 Router.use(express.json())
 
 Router.post('/helpdesk',permittedAuth([178,182]),async (req,res)=>{
-    const{egcaNum,dateText} = req.body
+    const{egcaNum} = req.body
+    const arrOfUpdatesKeys = Object.keys(req.body)
+    const filteredUpdatesKeys = arrOfUpdatesKeys.filter((key)=>{
+        return req.body[key] !==''
+    })
+    
     const objToUpdate = await Egca.findOne({egcaNum})
-    objToUpdate.dob = dateText
-    await objToUpdate.save()
-    res.json({authenticated:true})
+    let updateStatus = {authenticated:false}
+    filteredUpdatesKeys.forEach((key)=>{
+        if(key !== 'egcaNum'){
+            objToUpdate[key] = req.body[key] 
+            updateStatus = {authenticated:true}
+        }
+    })
+    if(updateStatus.authenticated){
+        await objToUpdate.save()
+    }
+    res.json(updateStatus)
+
 })
 
 Router.post('/namesearch',permittedAuth([178,182]),async (req,res)=>{

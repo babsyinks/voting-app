@@ -8,14 +8,14 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
     const[buttonisDisabled,setButtonisDisabled] = useState(false)
     const[egcaNumber,setEgcaNumber] = useState(0)
     const[votePercentColor,setVotePercentColor] = useState({})
-    const [theContestants,setTheContestants] = useState(contestants)
-
+    const[theContestants,setTheContestants] = useState(contestants)
+    
     const colorizeVotePercent = (contestants)=>{
-        
         const sortedContestants = contestants.slice().sort((c1,c2)=>c1.votes.length - c2.votes.length)
         const obj = {}
         const smallest = sortedContestants[0]
         const biggest = sortedContestants[contestants.length-1]
+
         if(sortedContestants.length>1){
             if(smallest.votes.length === 0 && biggest.votes.length === 0){
                 obj[smallest.egcaNum] = 'yellow' 
@@ -49,12 +49,12 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
                 obj[smallest.egcaNum] = 'rgb(0, 255, 0)'
                 obj[biggest.egcaNum] = 'rgb(0, 255, 0)'
             }
-            const[last] = sortedContestants.splice(0,1)
-            const[first] = sortedContestants.splice(sortedContestants.length-1,1)
+            const[last] = sortedContestants.slice().splice(0,1)
+            const[first] = sortedContestants.slice().splice(sortedContestants.length-1,1)
                 sortedContestants.forEach((contestantObj)=>{
                      if(contestantObj.votes.length === last.votes.length){
                          if(obj[smallest.egcaNum] === 'rgb(0, 255, 0)'){
-                            obj[contestantObj.egcaNum] = 'rgb(0, 255, 0'
+                            obj[contestantObj.egcaNum] = 'rgb(0, 255, 0)'
                          }
                          else{
                              obj[contestantObj.egcaNum] = 'red'
@@ -70,6 +70,11 @@ const ElectivePosition = ({myEgcaNum,totalVotes,contestants,position,categoryArr
                 
         })
         
+        }
+        if(sortedContestants.length === 1){
+            console.log(sortedContestants.length)
+            obj[smallest.egcaNum] = 'rgb(0, 255, 0)'
+            obj[biggest.egcaNum] = 'rgb(0, 255, 0)'
         }
         setVotePercentColor(obj)
     }

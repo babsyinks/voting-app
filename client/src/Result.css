@@ -54,6 +54,10 @@
     flex-direction: column;
 } 
 
+img.resImg{
+    width: 100% !important;
+}
+
 @media only screen and (orientation:portrait){
     .result{
         font-size: 1.25vh;

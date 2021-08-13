@@ -61,7 +61,7 @@ const Contestant = ({myEgcaNum,egcaNum,name,manifesto,picture,votes,totalVotes,p
                     <div className = "contestant_picture"><img src ={picture} alt = "contestant"/></div>
                     <div className = "aboutVotes">Name: <span className = 'name'>{name}</span></div>
                     <div className = "aboutVotes">Votes: {isButtonDisabled &&  <span><span className = 'votes'>{votes}</span> out of <span className = 'totalVotes'>{totalVotes}</span></span>}</div>
-                    <div className = "aboutVotes">Vote Percentage: {isButtonDisabled &&<span><span className = 'votePercent' style = {{color:votePercentColor[egcaNum]}}>{Math.round(votePercent())}%</span></span> }</div> 
+                    <div className = "aboutVotes">Vote Percent: {isButtonDisabled &&<span><span className = 'votePercent' style = {{color:votePercentColor[egcaNum]}}>{Math.round(votePercent())}%</span></span> }</div> 
                     <div><input type = "button" value = "Read Manifesto" onClick = {getManifesto} className = 'readManifesto'/></div>
                     {!isButtonDisabled?(
                     <input type = "button" value = "Vote" className = "submitVote" onClick = {voteForContestant} disabled = {disableVote} />

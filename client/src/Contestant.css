@@ -7,6 +7,7 @@
     background-color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
+    height: 35vw;
 }
 
 .contestant_picture{
@@ -129,6 +130,88 @@
       font-size: 1.25vh;
   }
 }
+
+@media only screen and (orientation:landscape) and (max-width:1200px){
+  .contestant{
+    height: 38vw;
+  }
+}
+
+@media only screen and (orientation:landscape) and (max-width:880px){
+  .contestant{
+    height: 42vw;
+  }
+}
+
+@media only screen and (orientation:landscape) and (max-width:820px){
+  .contestant{
+    height: 70vw;
+  }
+}
+
+@media only screen and (orientation:landscape) and (max-width:600px){
+  .contestant{
+    height: 125vw;
+  }
+}
+
+/* ......................... */
+
+
+@media only screen and (orientation:portrait){
+  .contestant{
+    height: 42vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:1200px){
+  .contestant{
+    height: 50vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:1000px){
+  .contestant{
+    height: 60vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:880px){
+  .contestant{
+    height: 75vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:750px){
+  .contestant{
+    height: 85vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:800px) and (min-width:500px){
+  .contestant{
+    height: 95vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:700px) and (max-width:350px){
+  .contestant{
+    height: 70vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:600px){
+  .contestant{
+    height: 100vh;
+  }
+}
+
+@media only screen and (orientation:portrait) and (max-height:1000px) and (min-width:550px){
+  .contestant{
+    height: 75vh;
+  }
+}
+
 @media screen and (min-height:251px) and (max-height:300px){
     .manifesto{
       max-height: 152vh;   
@@ -219,14 +302,59 @@
    
 }
 
+@media screen and (max-width:1100px) and (orientation:landscape){
+  .aboutVotes{
+    font-size: 1.5vw;
+}
+}
+
+@media screen and (max-height:1100px) and (orientation:portrait){
+  .aboutVotes{
+    font-size: 1.5vh;
+}
+}
+
 @media screen and (max-width:870px) and (orientation:landscape){
   .aboutVotes{
-    font-size: 1.95vw;
+    font-size: 1.85vw;
 }
 }
 @media screen and (max-height:870px) and (orientation:portrait){
   .aboutVotes{
-    font-size: 1.95vh;
+    font-size: 1.85vh;
+}
+}
+
+@media screen and (max-width:800px) and (orientation:landscape){
+  .aboutVotes{
+    font-size: 2vw;
+}
+}
+@media screen and (max-height:800px) and (orientation:portrait){
+  .aboutVotes{
+    font-size: 2vh;
+}
+}
+
+@media screen and (max-width:700px) and (orientation:landscape){
+  .aboutVotes{
+    font-size: 2.35vw;
+}
+}
+@media screen and (max-height:700px) and (orientation:portrait){
+  .aboutVotes{
+    font-size: 2.35vh;
+}
+}
+
+@media screen and (max-width:600px) and (orientation:landscape){
+  .aboutVotes{
+    font-size: 2.85vw;
+}
+}
+@media screen and (max-height:600px) and (orientation:portrait){
+  .aboutVotes{
+    font-size: 2.85vh;
 }
 }
 

@@ -26,7 +26,7 @@ function Result() {
 
         return (
             <div>
-                <h2 className="resHeader">Election Result</h2>
+                <h2 className="resHeader">Election Results</h2>
                 <div className="resWrap">
                     {result.map((res, i) => {
                         return (

@@ -58,6 +58,10 @@ img.resImg{
     width: 100% !important;
 }
 
+.resultContainer{
+    height: auto !important;
+}
+
 @media only screen and (orientation:portrait){
     .result{
         font-size: 1.25vh;

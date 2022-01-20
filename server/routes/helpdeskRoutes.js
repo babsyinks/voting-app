@@ -1,10 +1,6 @@
 const express = require('express')
-const jwt = require('jsonwebtoken')
 const path = require('path')
-const validator = require('validator')
 const {Egca} = require('../model/model')
-const pemrittedAuth = require('../middleware/permittedAuth')
-const electionAuth = require('../middleware/electionAuth')
 const permittedAuth = require('../middleware/permittedAuth')
 require('dotenv').config({path:path.join('..','..','.env')});
 const Router = express.Router()

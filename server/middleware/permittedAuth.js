@@ -8,16 +8,12 @@ const permittedAuth = (permittedUsers)=> async (req,res,next)=>{
 
     try {
 
-    const token = req.header('X-Auth-Token') || req.cookies.token
-         
-    if(typeof token !== 'string'){ 
+    const token = req.headers['x-auth-token']
+    const verifyObj = jwt.verify(token,process.env.TOKEN_SECRET)
+    const user = await Egca.findById(verifyObj.user.id) 
+    if(!user){ 
         return res.json({authenticated:false})
     }
-  
-    const verifyObj = jwt.verify(token,process.env.TOKEN_SECRET)
-
-    const user = await Egca.findById(verifyObj.user.id) 
-    
     if(permittedUsers.includes(user.egcaNum)){
         next()
     }

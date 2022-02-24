@@ -124,7 +124,6 @@ const handleSubmit = async (e)=>{
 
     if(token){
       localStorage.setItem('token',token)
-      
       setInfo(egcaNum,name)
       if(email_phone.saved){
         if(toVote){

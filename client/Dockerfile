@@ -2,7 +2,7 @@
 FROM node:14.17.2
 
 # Working directory be app
-WORKDIR /app
+WORKDIR '/app'
 
 COPY package*.json ./
 

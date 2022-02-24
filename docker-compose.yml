@@ -2,17 +2,15 @@ version: '3.7'
 
 services:
   server:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     image: myapp-server
     container_name: myapp-node-server
     command: npm start
     volumes:
-      - ./:/code
+      - .:/code
       - /code/node_modules
     ports:
-      - "3001:80"
+      - "3001:3001"
     depends_on:
       - mongo
     env_file: ./.env
@@ -21,7 +19,10 @@ services:
   mongo:
     image: mongo
     volumes:
-      - data-volume:/data/db
+      - ../../../../data:/data/db
+      - ../../Desktop:/desktop
+      # data-volume:/data/db
+    env_file: ./.env
     ports:
       - "27017:27017"
     networks:
@@ -29,7 +30,6 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
     image: myapp-client
     container_name: myapp-react-client
     command: npm start
@@ -49,7 +49,6 @@ networks:
         driver: bridge
 
 volumes:
-    data-volume:
     node_modules:
     web-root:
       driver: local

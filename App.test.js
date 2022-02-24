@@ -1,5 +1,8 @@
 
-const setUserInfoTest = require('./client/src/actions/userInfoAction.js') 
+const setUserInfoTest = (egcaNum,name)=>({
+  type:'USER_INFO',
+  payload:{egcaNum,name} 
+})
 
 describe('actions',()=>{
   it('checks userinfo for correct values',()=>{

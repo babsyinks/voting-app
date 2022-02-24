@@ -1,5 +1,4 @@
 language: generic
-sudo: required
 
 services:
   - docker
@@ -8,4 +7,5 @@ before_install:
   - docker build -t babsyinks/voting-app .
 
 script:
-  - docker run -e CI=true babsyinks/voting-app npm run test
+  - docker run babsyinks/voting-app 
+  - npm run test

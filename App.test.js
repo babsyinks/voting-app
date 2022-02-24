@@ -1,5 +1,5 @@
 
-const setUserInfoTest = require('./client/src/actions/userInfoAction') 
+const setUserInfoTest = require('./client/src/actions/userInfoAction.js') 
 
 describe('actions',()=>{
   it('checks userinfo for correct values',()=>{

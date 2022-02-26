@@ -1,5 +1,5 @@
 # Build react client
-FROM node:14.17.2
+FROM node:14-alpine
 
 # Working directory be app
 WORKDIR '/app'

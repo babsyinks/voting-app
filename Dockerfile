@@ -1,4 +1,4 @@
-FROM node:14.17.2
+FROM node:14-alpine
 WORKDIR '/code'
 ENV PORT 3001
 COPY package.json .

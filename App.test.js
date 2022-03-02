@@ -4,7 +4,7 @@ const setUserInfoTest = (egcaNum,name)=>({
   payload:{egcaNum,name} 
 })
 
-describe('actions',()=>{
+describe('actions of userInfo',()=>{
   it('checks userinfo for correct values',()=>{
     expect(setUserInfoTest(333,"Andrei")).toEqual({
       type:'USER_INFO',

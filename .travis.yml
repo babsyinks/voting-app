@@ -10,7 +10,7 @@ script:
   - docker run babsyinks/voting-app-server npm run test -- --coverage
 
 after_success:
-  - docker build -t babsyinks/voting-app-myclient ./client
+  - docker build -t babsyinks/voting-app-client ./client
   - docker build -t babsyinks/voting-app-nginx ./nginx
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin

@@ -1,18 +1,11 @@
-# Build react client
-FROM node:14-alpine
-
-# Working directory be app
+FROM node:alpine as builder
 WORKDIR '/app'
-
-COPY package*.json ./
-
-###  Installing dependencies
-
+COPY ./package.json ./
 RUN npm install
-
-# copy local files to app folder
 COPY . .
+RUN npm run build
 
+FROM nginx
 EXPOSE 3000
-
-CMD ["npm","start"]
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html

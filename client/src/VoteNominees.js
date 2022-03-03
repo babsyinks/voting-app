@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import Particles from 'react-particles-js'
+/* import Particles from 'react-particles-js' */
 import {adminLogin} from './actions/adminActions'
 import {loading,notLoading} from './actions/loadingActions'
 import DisplayErrorMessage from './DisplayErrorMessage'
@@ -10,7 +10,7 @@ import LiveTimer  from './LiveTimer'
 import Result from './Result'
 import './VoteNominees.css'
 
-const params = {"particles":
+/* const params = {"particles":
 {"number":{"value":150,"density":{"enable":true,"value_area":800}},      
    "shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},
        "polygon":{"nb_sides":5},
@@ -27,7 +27,7 @@ const params = {"particles":
                                  "bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},
                                    "repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},
                                       "remove":{"particles_nb":2}}},"retina_detect":true}
-
+ */
 
 const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},load,stopLoading,isLoading,timer})=>{
     const[displayAlert,setDisplayAlert] = useState({display:false,cls:'',message:''})
@@ -113,7 +113,7 @@ const VoteNominees = ({login,history,userAuthenticated,userInfo:{egcaNum,name},l
             if(!failedFetch){
               return(
              <div className = "voteNomineesWrapper">
-                <Particles params = {params} className = 'particles' />
+                {/* <Particles params = {params} className = 'particles' /> */}
                  {displayAlert.display && <DisplayErrorMessage status = {displayAlert.cls}>{displayAlert.message}</DisplayErrorMessage>}
                    <div className = "headerTab">
                          <i className="fas fa-home" onClick = {goHome}></i>
